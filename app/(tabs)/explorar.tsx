@@ -1,0 +1,37 @@
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { CardItinerario } from '@/components/Explorar/Card-Itinerario-Explorar';
+import { CategoriasCarrusel } from '@/components/Explorar/Filtro-Categorias-Carrusel';
+import { FiltrosDeBusqueda } from '@/components/Filtros-de-busqueda';
+import { Header } from '@/components/Header';
+import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
+
+export default function explorar() {
+  return (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Header />
+      <FiltrosDeBusqueda />
+      <CategoriasCarrusel />
+
+      <CardItinerario
+        title="Teatro Colón"
+        description="Visita guiada por el emblemático Teatro Colón, 
+                      descubriendo su historia, arquitectura y secretos 
+                        detrás del escenario."
+        category="Cultura"
+        image={<TeatroColonIcon width="100%" height={180} preserveAspectRatio="xMidYMid slice" />}
+        rating="5.0k"
+        duration="3 dias"
+      />
+
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F9FAFB",
+    paddingTop: 0,
+    paddingHorizontal: 20,
+  },
+});
