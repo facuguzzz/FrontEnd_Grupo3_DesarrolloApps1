@@ -3,18 +3,20 @@ import { Ionicons } from '@expo/vector-icons';
 
 export function FiltrosDeBusqueda() {
   return (
-    <View style={styles.container}>
+    /*Contenedor Principal*/
+    < View style={styles.container} >
       <Ionicons name="search" size={27} color="#9CA3AF" />
       <TextInput
         placeholder="¿A dónde quieres ir?"
         placeholderTextColor="#9CA3AF"
         style={styles.input}
       />
+      {/*Contenedor de separador con la imagen de filtro*/}
       <View style={styles.separator} />
       <TouchableOpacity>
         <Ionicons name="options-outline" size={20} color="#6B7280" />
       </TouchableOpacity>
-    </View>
+    </View >
   );
 }
 
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E5E7EB",
     marginBottom: 20,
-    marginTop: 16, // some margin from the header
+    marginTop: 16,
   },
   input: {
     flex: 1,

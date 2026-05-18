@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
 import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
+import CorazonIcon from '../../assets/images/Icono-Corazon.svg';
+import CorazonLlenoIcon from '../../assets/images/Icono-Corazon-Rellenado.svg';
 
 type Props = {
   title?: string;
@@ -19,38 +21,51 @@ export function CardItinerarioInfo({
   description = "Visita guiada por el emblemático Teatro Colón, descubriendo su historia, arquitectura y secretos detrás del escenario.",
   onBackPress
 }: Props) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   return (
     <View>
-      <View style={styles.heroImageContainer}>
+      {/** Contenedor de la imagen */}
+      <View style={styles.contenedorImagen}>
+        {/** Imagen superpuesta con texto */}
         <TeatroColonIcon width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={StyleSheet.absoluteFillObject} />
 
-        {/* Iconos de atras y corazon */}
+        {/** Capa superpuesta con filtro oscuro trasparente */}
         <View style={styles.heroOverlay}>
+          {/* Iconos de atras y corazon */}
           <View style={styles.heroTopBar}>
-            <TouchableOpacity style={styles.circleButton} onPress={onBackPress}>
+            {/** Boton de atras */}
+            <TouchableOpacity style={styles.contenedorCircular} onPress={onBackPress}>
               <Ionicons name="arrow-back" size={20} color="#111827" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.circleButton}>
-              <Ionicons name="heart-outline" size={20} color="#6B7280" />
+            {/** Boton de corazon */}
+            <TouchableOpacity style={styles.contenedorCircular} onPress={() => setIsFavorite(!isFavorite)}>
+              {isFavorite ?
+                <CorazonLlenoIcon width={21} height={21} />
+                :
+                <CorazonIcon width={21} height={21} />
+              }
             </TouchableOpacity>
           </View>
 
-          <View style={styles.heroBottomContent}>
-            <View style={styles.locationBadge}>
+          {/** Contenido de la parte inferior de la imagen */}
+          <View style={styles.contenedorInfoInferior}>
+            {/** Insignia de la categoria */}
+            <View style={styles.etiquetaCategoria}>
               <CulturaIcon width={16} height={16} style={{ marginRight: 4 }} />
-              <Text style={styles.locationBadgeText}>{category}</Text>
+              <Text style={styles.etiquetaCategoriaTexto}>{category}</Text>
             </View>
-            <Text style={styles.heroTitle}>{title}</Text>
-            <View style={styles.dateRow}>
+            <Text style={styles.titulo}>{title}</Text>
+            <View style={styles.fechas}>
               <Ionicons name="calendar-outline" size={16} color="#FFFFFF" />
-              <Text style={styles.dateText}>{dateRange}</Text>
+              <Text style={styles.fechasTexto}>{dateRange}</Text>
             </View>
           </View>
         </View>
       </View>
 
       {/* Descripción */}
-      <Text style={styles.description}>
+      <Text style={styles.descripcion}>
         {description}
       </Text>
     </View>
@@ -58,7 +73,7 @@ export function CardItinerarioInfo({
 }
 
 const styles = StyleSheet.create({
-  heroImageContainer: {
+  contenedorImagen: {
     width: '100%',
     height: 280,
     marginTop: 10,
@@ -81,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  circleButton: {
+  contenedorCircular: {
     width: 36,
     height: 36,
     borderRadius: 18,
@@ -89,10 +104,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  heroBottomContent: {
+  contenedorInfoInferior: {
     gap: 8,
   },
-  locationBadge: {
+  etiquetaCategoria: {
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -101,13 +116,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  locationBadgeText: {
+  etiquetaCategoriaTexto: {
     color: '#111827',
     fontSize: 13,
     fontWeight: 'bold',
     marginLeft: 2,
   },
-  heroTitle: {
+  titulo: {
     color: '#FFFFFF',
     fontSize: 32,
     fontWeight: 'bold',
@@ -116,12 +131,12 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
   },
-  dateRow: {
+  fechas: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
   },
-  dateText: {
+  fechasTexto: {
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '600',
@@ -129,7 +144,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
   },
-  description: {
+  descripcion: {
     fontSize: 16,
     color: '#4B5563',
     textAlign: 'center',

@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
 import CorazonIcon from '../../assets/images/Icono-Corazon.svg';
+import CorazonLlenoIcon from '../../assets/images/Icono-Corazon-Rellenado.svg';
 import { useRouter } from 'expo-router';
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
   duration?: string;
 };
 
-export function CardItinerario({
+export function CardItinerarioExplorar({
   title,
   description,
   category,
@@ -23,6 +24,7 @@ export function CardItinerario({
   duration,
 }: Props) {
   const router = useRouter();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <TouchableOpacity
@@ -36,8 +38,12 @@ export function CardItinerario({
         {image}
 
         {/* Icono de corazon */}
-        <TouchableOpacity style={styles.botonCorazon}>
-          <CorazonIcon width={19} height={19} />
+        <TouchableOpacity style={styles.botonCorazon} onPress={() => setIsFavorite(!isFavorite)}>
+          {isFavorite ?
+            <CorazonLlenoIcon width={20} height={20} />
+            :
+            <CorazonIcon width={20} height={20} />
+          }
         </TouchableOpacity>
 
         {/* Categoria */}
@@ -101,9 +107,9 @@ const styles = StyleSheet.create({
     top: 12,
     right: 12,
     backgroundColor: '#FFFFFF',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 35,
+    height: 35,
+    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: "#000",

@@ -1,5 +1,5 @@
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
-import { CardItinerario } from '@/components/Explorar/Card-Itinerario-Explorar';
+import { CardItinerarioExplorar } from '@/components/Explorar/Card-Itinerario-Explorar';
 import { CategoriasCarrusel } from '@/components/Explorar/Filtro-Categorias-Carrusel';
 import { FiltrosDeBusqueda } from '@/components/Filtros-de-busqueda';
 import { Header } from '@/components/Header';
@@ -12,7 +12,7 @@ export default function explorar() {
       <FiltrosDeBusqueda />
       <CategoriasCarrusel />
 
-      <CardItinerario
+      <CardItinerarioExplorar
         title="Teatro Colón"
         description="Visita guiada por el emblemático Teatro Colón, 
                       descubriendo su historia, arquitectura y secretos 
