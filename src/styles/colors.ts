@@ -1,0 +1,15 @@
+export const COLORS = {
+  primaryBlue: '#2F65E3',
+  gradientStart: '#4C7BF4',
+  gradientEnd: '#1E40AF',
+  white: '#ffffff',
+  black: '#000000',
+  textLight: '#8C98A8',
+  textDark: '#1E293B',
+  backgroundLight: '#ffffff',
+  border: '#E2E8F0',
+  error: '#ff3b30',
+  success: '#34c759',
+  buttonText: '#ffffff',
+  linkText: '#2F65E3',
+};
