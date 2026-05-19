@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { COLORS } from '../styles/colors';
 
 interface HeaderLogoProps {
@@ -10,10 +9,26 @@ interface HeaderLogoProps {
 }
 
 export const HeaderLogo: React.FC<HeaderLogoProps> = ({ title, subtitle, largeLogo = false }) => {
+  if (largeLogo) {
+    return (
+      <View style={styles.container}>
+        <Image 
+          source={require('../../assets/images/TuristearLogin.png')} 
+          style={styles.largeLogoImage}
+          resizeMode="contain"
+        />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <View style={[styles.logoIconContainer, largeLogo && styles.logoIconContainerLarge]}>
-        <Ionicons name="map" size={largeLogo ? 60 : 40} color={COLORS.primaryBlue} />
+      <View style={styles.logoIconContainer}>
+        <Image 
+          source={require('../../assets/images/TuristearIsotipo_ICON.png')} 
+          style={styles.smallLogoImage}
+          resizeMode="contain"
+        />
       </View>
       {title && <Text style={styles.title}>{title}</Text>}
       {subtitle && (
@@ -45,11 +60,13 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
   },
-  logoIconContainerLarge: {
-    width: 120,
-    height: 120,
-    borderRadius: 30,
-    marginBottom: 0, // No title/subtitle in splash, so no margin needed
+  smallLogoImage: {
+    width: 60,
+    height: 60,
+  },
+  largeLogoImage: {
+    width: 250,
+    height: 250,
   },
   title: {
     fontSize: 24,
