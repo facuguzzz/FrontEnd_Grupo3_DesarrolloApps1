@@ -17,8 +17,7 @@ export default function HomeScreen() {
   };
 
   const handlePreferenciasPress = () => {
-    // Redirigir a la pestaña de Explorar para filtrar preferencias
-    router.push('/explorar');
+    router.push('/preferencias');
   };
 
   return (
