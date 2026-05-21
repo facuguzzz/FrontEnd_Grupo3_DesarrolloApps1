@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { COLORS } from '../styles/colors';
+import BrandIcon from '../../assets/images/icono.svg';
 
 interface HeaderLogoProps {
   title?: string;
@@ -12,10 +13,9 @@ export const HeaderLogo: React.FC<HeaderLogoProps> = ({ title, subtitle, largeLo
   if (largeLogo) {
     return (
       <View style={styles.container}>
-        <Image 
-          source={require('../../assets/images/TuristearLogin.png')} 
-          style={styles.largeLogoImage}
-          resizeMode="contain"
+        <BrandIcon 
+          width={180} 
+          height={180} 
         />
       </View>
     );
@@ -24,10 +24,9 @@ export const HeaderLogo: React.FC<HeaderLogoProps> = ({ title, subtitle, largeLo
   return (
     <View style={styles.container}>
       <View style={styles.logoIconContainer}>
-        <Image 
-          source={require('../../assets/images/TuristearIsotipo_ICON.png')} 
-          style={styles.smallLogoImage}
-          resizeMode="contain"
+        <BrandIcon 
+          width={54} 
+          height={54} 
         />
       </View>
       {title && <Text style={styles.title}>{title}</Text>}
@@ -60,14 +59,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
   },
-  smallLogoImage: {
-    width: 60,
-    height: 60,
-  },
-  largeLogoImage: {
-    width: 250,
-    height: 250,
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -83,3 +74,4 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
 });
+
