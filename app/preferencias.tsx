@@ -1,24 +1,24 @@
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import NaturalezaIcon from '../assets/images/Icono-Naturaleza.svg';
-import GastronomiaIcon from '../assets/images/Icono-Gastronomia.svg';
-import CulturaIcon from '../assets/images/Icono-Cultura.svg';
 import AventuraIcon from '../assets/images/Icono-Aventura.svg';
+import CulturaIcon from '../assets/images/Icono-Cultura.svg';
+import GastronomiaIcon from '../assets/images/Icono-Gastronomia.svg';
+import NaturalezaIcon from '../assets/images/Icono-Naturaleza.svg';
 import { CalendarioViaje } from '../components/Preferencias/CalendarioViaje';
 import { ProvinciaSelector } from '../components/Preferencias/ProvinciaSelector';
-import { CategoriaItinerario, CATEGORIA_LABEL, Provincia, PROVINCIA_LABEL } from '../src/types/itinerario';
 import { buscarPorPreferencias } from '../src/services/itinerarioService';
+import { CATEGORIA_LABEL, CategoriaItinerario, Provincia, PROVINCIA_LABEL } from '../src/types/itinerario';
 
 const CATEGORIAS: { value: CategoriaItinerario; icon: React.ReactNode }[] = [
   { value: CategoriaItinerario.NATURALEZA, icon: <NaturalezaIcon width={28} height={28} /> },
