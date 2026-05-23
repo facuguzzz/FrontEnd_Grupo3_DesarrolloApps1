@@ -1,22 +1,35 @@
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-export const icons = {
+export const iconsName = {
   // Generales
-  ArrowForward: 'arrow-forward',
-  ArrowBack: 'arrow-back',
-  AddLocationAlt: 'add-location-alt',
-  CalendarToday: 'calendar-today',
-  CalendarMonth: 'calendar-month',
+  AddItinerary: 'add-location-alt',
+  EmptyCalendar: 'calendar-today',
+  FullCalendar: 'calendar-month',
   RocketLaunch: 'rocket-launch',
-  FavoriteOutline: 'favorite-border', // favorite (borde)
-  FavoriteFilled: 'favorite', // favorite (filled)
-  Keep: 'bookmark', // Equivalente común para guardar/keep
+  Save: 'bookmark', 
   Schedule: 'schedule',
   PhotoCamera: 'photo-camera',
-  Lock: 'lock',
   Logout: 'logout',
+  Location: 'place',
+  CloudOffline: 'cloud-off',
+  Download: 'file-download',
+  Pin: 'push-pin',
+  Compass: 'explore',
+
+  //Contraseña
+  Lock: 'lock',
   Visibility: 'visibility',
   VisibilityOff: 'visibility-off',
+
+  //Editar Actividad
+  Edit: 'edit',
+  Delete: 'delete',
+
+  //Favorite Button
+  FavoriteOutline: 'favorite-border', 
+  FavoriteFilled: 'favorite', 
+
+  //MoveButtons
+  ArrowForward: 'arrow-forward',
+  ArrowBack: 'arrow-back',
 
   // Activities Icons
   Landscape: 'landscape',
@@ -32,10 +45,7 @@ export const icons = {
 
   // Navbar
   Home: 'home',
-  Explore: 'explore',
-  Person: 'person',
-} as const;
-
-// Tipos para asegurar autocompletado en tus componentes
-export type AppIconKey = keyof typeof icons;
-export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
+  Explore: 'compass',
+  Favorites: 'heart',
+  Person: 'account',
+};
