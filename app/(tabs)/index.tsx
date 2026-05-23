@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Header } from '@/components/Header';
-import { COLORS } from '@/src/styles/colors';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -17,12 +16,12 @@ export default function HomeScreen() {
   };
 
   const handlePreferenciasPress = () => {
-    router.push('/preferencias');
+    router.push('/inicioApp/preferencias');
   };
 
   return (
-    <ScrollView 
-      style={styles.container} 
+    <ScrollView
+      style={styles.container}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollContent}
     >
@@ -36,15 +35,15 @@ export default function HomeScreen() {
       </View>
 
       {/* Sección Viaje en Curso */}
-      <TouchableOpacity 
-        style={styles.enCursoCard} 
-        activeOpacity={0.9} 
+      <TouchableOpacity
+        style={styles.enCursoCard}
+        activeOpacity={0.9}
         onPress={handleEnCursoPress}
       >
         <View style={styles.imageContainer}>
-          <Image 
-            source={require('../../assets/images/bariloche_escapada.png')} 
-            style={styles.cardImage} 
+          <Image
+            source={require('../../assets/images/bariloche_escapada.png')}
+            style={styles.cardImage}
             resizeMode="cover"
           />
           {/* Degradado premium para asegurar la legibilidad del texto en blanco */}
@@ -52,7 +51,7 @@ export default function HomeScreen() {
             colors={['transparent', 'rgba(0, 0, 0, 0.75)']}
             style={styles.gradientOverlay}
           />
-          
+
           {/* Badge flotante "En curso" */}
           <View style={styles.badge}>
             <Text style={styles.badgeText}>En curso</Text>
@@ -61,8 +60,8 @@ export default function HomeScreen() {
           {/* Título flotante y botón de acción */}
           <View style={styles.titleOverlayRow}>
             <Text style={styles.cardTitle}>Escapada a Bariloche</Text>
-            <TouchableOpacity 
-              style={styles.arrowButton} 
+            <TouchableOpacity
+              style={styles.arrowButton}
               onPress={handleEnCursoPress}
               activeOpacity={0.7}
             >
@@ -95,8 +94,8 @@ export default function HomeScreen() {
       </TouchableOpacity>
 
       {/* Sección Buscar por Preferencias */}
-      <TouchableOpacity 
-        style={styles.yellowCard} 
+      <TouchableOpacity
+        style={styles.yellowCard}
         activeOpacity={0.95}
         onPress={handlePreferenciasPress}
       >
