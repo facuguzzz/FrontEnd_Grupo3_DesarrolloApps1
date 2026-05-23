@@ -1,40 +1,40 @@
 // Fallback for using MaterialIcons on Android and web.
 
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { SymbolWeight, SymbolViewProps } from 'expo-symbols';
-import { ComponentProps } from 'react';
-import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
-
-type IconSymbolName = 'house.fill' | 'paperplane.fill' | 'chevron.left.forwardslash.chevron.right' | 'chevron.right';
+import { SymbolView, SymbolWeight } from 'expo-symbols';
+import React from 'react';
+import { OpaqueColorValue, StyleProp, ViewStyle } from 'react-native';
+import { icons, AppIconKey } from '@/constants/icons';
 
 /**
- * Add your SF Symbols to Material Icons mappings here.
- * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
- * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
- */
-const MAPPING: Record<IconSymbolName, ComponentProps<typeof MaterialIcons>['name']> = {
-  'house.fill': 'home',
-  'paperplane.fill': 'send',
-  'chevron.left.forwardslash.chevron.right': 'code',
-  'chevron.right': 'chevron-right',
-};
-
-/**
- * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
- * This ensures a consistent look across platforms, and optimal resource usage.
- * Icon `name`s are based on SF Symbols and require manual mapping to Material Icons.
+ * An icon component that uses native SF Symbols on iOS, and Material Symbols on Android and web.
+ * Uses the centralized icons definition from constants/icons.
  */
 export function IconSymbol({
   name,
   size = 24,
   color,
   style,
+  weight = 'regular',
 }: {
-  name: IconSymbolName;
+  name: AppIconKey;
   size?: number;
   color: string | OpaqueColorValue;
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
-  return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
+  return (
+    <SymbolView
+      weight={weight}
+      tintColor={color}
+      resizeMode="scaleAspectFit"
+      name={icons[name]}
+      style={[
+        {
+          width: size,
+          height: size,
+        },
+        style,
+      ]}
+    />
+  );
 }
