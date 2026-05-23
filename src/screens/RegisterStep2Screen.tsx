@@ -51,7 +51,7 @@ export const RegisterStep2Screen: React.FC = () => {
     });
 
     setTimeout(() => {
-      router.replace('/login');
+      router.replace('/(tabs)');
     }, 1000);
   };
 
