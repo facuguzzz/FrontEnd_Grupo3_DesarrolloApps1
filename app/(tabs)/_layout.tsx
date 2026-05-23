@@ -1,10 +1,10 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
 import { HapticTab } from '@/components/haptic-tab';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '@/src/styles/colors';
+import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import React from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -42,10 +42,10 @@ export default function TabLayout() {
           title: 'Inicio',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'home-sharp' : 'home-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
+              <Ionicons
+                name={focused ? 'home-sharp' : 'home-outline'}
+                size={22}
+                color={focused ? COLORS.primaryBlue : color}
               />
             </View>
           ),
@@ -57,10 +57,10 @@ export default function TabLayout() {
           title: 'Explorar',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'compass-sharp' : 'compass-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
+              <Ionicons
+                name={focused ? 'compass-sharp' : 'compass-outline'}
+                size={22}
+                color={focused ? COLORS.primaryBlue : color}
               />
             </View>
           ),
@@ -72,10 +72,10 @@ export default function TabLayout() {
           title: 'Favoritos',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'heart-sharp' : 'heart-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
+              <Ionicons
+                name={focused ? 'heart-sharp' : 'heart-outline'}
+                size={22}
+                color={focused ? COLORS.primaryBlue : color}
               />
             </View>
           ),
@@ -87,10 +87,10 @@ export default function TabLayout() {
           title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'person-sharp' : 'person-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
+              <Ionicons
+                name={focused ? 'person-sharp' : 'person-outline'}
+                size={22}
+                color={focused ? COLORS.primaryBlue : color}
               />
             </View>
           ),
@@ -116,6 +116,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeIconContainer: {
-    backgroundColor: '#EEF2FF', // Color suave de fondo para la pestaña activa
+    backgroundColor: '#EEF2FF',
   },
 });

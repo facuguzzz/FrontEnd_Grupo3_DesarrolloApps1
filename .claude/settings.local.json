@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(npx expo *)",
-      "Bash(npm install *)",
-      "Bash(node -e \"const e=require\\('./node_modules/expo/package.json'\\); const rn=require\\('./node_modules/react-native/package.json'\\); const r=require\\('./node_modules/react/package.json'\\); console.log\\('expo:', e.version, '\\\\nreact-native:', rn.version, '\\\\nreact:', r.version\\)\")"
-    ]
-  }
-}

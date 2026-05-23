@@ -1,9 +1,9 @@
+import { Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import Toast from 'react-native-toast-message';
 import 'react-native-reanimated';
-import { useFonts, Inter_700Bold } from '@expo-google-fonts/inter';
+import Toast from 'react-native-toast-message';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -13,13 +13,13 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  
+
   const [loaded] = useFonts({
     'Inter-Bold': Inter_700Bold,
   });
-  
+
   if (!loaded) {
-    return null; 
+    return null;
   }
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
