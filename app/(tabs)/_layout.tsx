@@ -96,13 +96,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      {/* Ocultamos la pestaña original de boilerplate 'explore' */}
-      <Tabs.Screen
-        name="explore"
-        options={{
-          href: null,
-        }}
-      />
     </Tabs>
   );
 }

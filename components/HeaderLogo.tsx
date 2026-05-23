@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { COLORS } from '../styles/colors';
-import BrandIcon from '../../assets/images/icono.svg';
+import { COLORS } from '../src/styles/colors';
+import BrandIcon from '../assets/images/icono.svg';
 
 interface HeaderLogoProps {
   title?: string;
@@ -74,4 +74,3 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
 });
-

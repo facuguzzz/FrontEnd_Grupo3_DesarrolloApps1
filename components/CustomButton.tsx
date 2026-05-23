@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '../styles/colors';
+import { COLORS } from '../src/styles/colors';
 
 interface CustomButtonProps extends TouchableOpacityProps {
   title: string;

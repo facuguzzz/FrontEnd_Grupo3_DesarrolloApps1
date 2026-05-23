@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { COLORS } from '../styles/colors';
-import { HeaderLogo } from '../components/HeaderLogo';
+import { HeaderLogo } from '../../components/HeaderLogo';
 
 export const SplashScreen: React.FC = () => {
   const router = useRouter();
