@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
-import CorazonIcon from '../../assets/images/Icono-Corazon.svg';
-import CorazonLlenoIcon from '../../assets/images/Icono-Corazon-Rellenado.svg';
-import IconoDescarga from '../../assets/images/Icono-Descargar.svg';
-import IconoEditar from '../../assets/images/Icono-Editar.svg';
+import { icons } from '../../constants/icons';
+import { colors } from '../../constants/colors';
 
 type Props = {
     title?: string;
@@ -14,6 +11,18 @@ type Props = {
     dateRange?: string;
     description?: string;
     onBackPress?: () => void;
+    onEditPress?: () => void;
+};
+
+const categoryIconMap: Record<string, string> = {
+    'Cultura': icons.Museum,
+    'Naturaleza': icons.Landscape,
+    'Gastronomía': icons.Restaurant,
+    'Gastronomia': icons.Restaurant,
+    'Aventura': icons.Hiking,
+    'Noche': icons.Nightlife,
+    'Compras': icons.ShoppingBag,
+    'Compra': icons.ShoppingBag,
 };
 
 export function CardItinerarioInfoFav({
@@ -21,9 +30,12 @@ export function CardItinerarioInfoFav({
     category = "Cultura",
     dateRange = "15 Oct - 22 Oct, 2024",
     description = "Visita guiada por el emblemático Teatro Colón, descubriendo su historia, arquitectura y secretos detrás del escenario.",
-    onBackPress
+    onBackPress,
+    onEditPress
 }: Props) {
     const [isFavorite, setIsFavorite] = useState(true);
+
+    const categoryIcon = categoryIconMap[category || ''] || icons.Museum;
 
     return (
         <View>
@@ -40,16 +52,16 @@ export function CardItinerarioInfoFav({
 
                         {/** Boton de atras */}
                         <TouchableOpacity style={styles.contenedorCircular} onPress={onBackPress}>
-                            <Ionicons name="arrow-back" size={20} color="#111827" />
+                            <MaterialIcons name={icons.ArrowBack} size={20} color="#111827" />
                         </TouchableOpacity>
 
                         {/** Boton de corazon */}
                         <TouchableOpacity style={styles.contenedorCircular} onPress={() => setIsFavorite(!isFavorite)}>
-                            {isFavorite ?
-                                <CorazonLlenoIcon width={21} height={21} />
-                                :
-                                <CorazonIcon width={21} height={21} />
-                            }
+                            <MaterialIcons 
+                                name={isFavorite ? icons.FavoriteFilled : icons.FavoriteOutline} 
+                                size={21} 
+                                color={colors.danger} 
+                            />
                         </TouchableOpacity>
                     </View>
 
@@ -58,7 +70,12 @@ export function CardItinerarioInfoFav({
 
                         {/** Insignia de la categoria */}
                         <View style={styles.etiquetaCategoria}>
-                            <CulturaIcon width={16} height={16} style={{ marginRight: 4 }} />
+                            <MaterialIcons 
+                                name={categoryIcon as any} 
+                                size={16} 
+                                color="#111827" 
+                                style={{ marginRight: 4 }} 
+                            />
                             <Text style={styles.etiquetaCategoriaTexto}>{category}</Text>
                         </View>
 
@@ -68,17 +85,17 @@ export function CardItinerarioInfoFav({
 
                             {/** Fechas */}
                             <View style={styles.fechas}>
-                                <Ionicons name="calendar-outline" size={16} color="#FFFFFF" />
+                                <MaterialIcons name={icons.CalendarToday} size={16} color="#FFFFFF" />
                                 <Text style={styles.fechasTexto}>{dateRange}</Text>
                             </View>
 
                             {/** Iconos de descarga y editar */}
                             <View style={styles.contenedorIconosDescargaEditar}>
                                 <TouchableOpacity>
-                                    <IconoDescarga width={23} height={23} />
+                                    <MaterialIcons name={icons.Download} size={23} color="#FFFFFF" />
                                 </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <IconoEditar width={23} height={23} />
+                                <TouchableOpacity onPress={onEditPress}>
+                                    <MaterialIcons name={icons.Edit} size={23} color="#FFFFFF" />
                                 </TouchableOpacity>
                             </View>
 

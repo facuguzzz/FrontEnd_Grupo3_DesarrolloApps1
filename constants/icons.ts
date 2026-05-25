@@ -17,6 +17,16 @@ export const icons = {
   Logout: 'logout',
   Visibility: 'visibility',
   VisibilityOff: 'visibility-off',
+  Save: 'save',
+  CloudOffline: 'cloud-off',
+  Compass: 'compass',
+  Location: 'location-on',
+  Download: 'download',
+  Pin: 'pin',
+  Edit: 'edit',
+  Delete: 'delete',
+  'chevron.right': 'keyboard-arrow-right',
+  'chevron.left.forwardslash.chevron.right': 'code',
 
   // Activities Icons
   Landscape: 'landscape',
@@ -34,6 +44,7 @@ export const icons = {
   Home: 'home',
   Explore: 'explore',
   Person: 'person',
+  Favorite: 'favorite',
 } as const;
 
 // Tipos para asegurar autocompletado en tus componentes

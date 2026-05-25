@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Pressable, Animated, StyleProp, ViewStyle } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { colors } from '../../../constants/colors';
-import { iconsName } from '../../../constants/icons';
+import { icons } from '../../../constants/icons';
 import { styles } from './FavoriteButton.styles';
 
 export interface FavoriteButtonProps {
@@ -50,7 +50,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     >
       <Animated.View style={{ transform: [{ scale }] }}>
         <MaterialIcons
-          name={isFavorite ? iconsName.FavoriteFilled : iconsName.FavoriteOutline}
+          name={isFavorite ? icons.FavoriteFilled : icons.FavoriteOutline}
           size={18}
           color={isFavorite ? colors.danger : colors.textSecondary}
         />

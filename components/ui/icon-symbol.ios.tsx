@@ -20,7 +20,7 @@ export function IconSymbol({
       weight={weight}
       tintColor={color}
       resizeMode="scaleAspectFit"
-      name={icons[name]}
+      name={icons[name] as any}
       style={[
         {
           width: size,

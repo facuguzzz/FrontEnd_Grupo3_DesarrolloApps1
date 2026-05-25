@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/common/Header/Header';
 import { COLORS } from '@/src/styles/colors';
 import { Ionicons } from '@expo/vector-icons';
 

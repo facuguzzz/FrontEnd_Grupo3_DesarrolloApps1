@@ -2,13 +2,13 @@ import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import { CardItinerarioExplorar } from '@/components/Explorar/Card-Itinerario-Explorar';
 import { CategoriasCarrusel } from '@/components/Explorar/Filtro-Categorias-Carrusel';
 import { FiltrosDeBusqueda } from '@/components/Filtros-de-busqueda';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/common/Header/Header';
 import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
 
 export default function explorar() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Header />
+      <Header title="Explorar" />
       <FiltrosDeBusqueda />
       <CategoriasCarrusel />
 

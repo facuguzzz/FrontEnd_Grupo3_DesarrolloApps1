@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleProp, ViewStyle } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { colors } from '../../../constants/colors';
-import { iconsName } from '../../../constants/icons';
+import { icons } from '../../../constants/icons';
 import { styles } from './OfflineBadge.styles';
 
 export interface OfflineBadgeProps {
@@ -14,7 +14,7 @@ export const OfflineBadge: React.FC<OfflineBadgeProps> = ({ style }) => {
   return (
     <View style={[styles.offlineBadge, style]}>
       <MaterialIcons 
-        name={iconsName.CloudOffline}
+        name={icons.CloudOffline}
         size={12}
         color={colors.primary}
       />

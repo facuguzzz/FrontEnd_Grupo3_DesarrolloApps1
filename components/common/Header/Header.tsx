@@ -3,7 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { colors } from '../../../constants/colors';
-import { iconsName } from '../../../constants/icons';
+import { icons } from '../../../constants/icons';
 import { styles } from './Header.styles';
 
 export interface HeaderProps {
@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
             accessibilityLabel="Volver"
           >
             <MaterialIcons 
-              name={iconsName.ArrowBack} 
+              name={icons.ArrowBack} 
               size={24} 
               color={colors.primary} 
             />
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
           accessibilityLabel="Toggle Theme"
         >
           <MaterialIcons 
-            name={iconsName.DarkMode}
+            name={icons.DarkMode}
             size={33}
             color={colors.primary}
           />

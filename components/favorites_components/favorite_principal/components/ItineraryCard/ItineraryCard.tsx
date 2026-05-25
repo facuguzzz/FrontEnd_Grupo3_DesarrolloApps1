@@ -3,7 +3,7 @@ import { View, Text, ImageBackground, Pressable, Animated } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { styles } from './ItineraryCard.styles';
 import { colors } from '../../../../../constants/colors';
-import { iconsName } from '../../../../../constants/icons';
+import { icons } from '../../../../../constants/icons';
 import { OfflineBadge } from '../../../../common/OfflineBadge/OfflineBadge';
 import { FavoriteButton } from '../../../../common/FavoriteButton/FavoriteButton';
 
@@ -100,7 +100,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
         
         <View style={styles.locationRow}>
           <MaterialIcons 
-            name={iconsName.Location}
+            name={icons.Location}
             size={16}
             color={colors.textSecondary}
           />
@@ -136,7 +136,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
             >
               <Animated.View style={{ transform: [{ scale: downloadScale }] }}>
                 <MaterialIcons 
-                  name={iconsName.Download}
+                  name={icons.Download}
                   size={22}
                   color={isOfflineAvailable ? colors.primary : colors.textSecondary}
                 />
@@ -153,7 +153,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
             >
               <Animated.View style={{ transform: [{ scale: pinScale }] }}>
                 <MaterialIcons 
-                  name={iconsName.Pin}
+                  name={icons.Pin}
                   size={22}
                   color={isPinned ? colors.warning : colors.textSecondary}
                 />

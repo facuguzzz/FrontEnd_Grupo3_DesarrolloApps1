@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { styles } from './BottomNavBar.styles';
 import { colors } from '../../../constants/colors';
-import { iconsName } from '../../../constants/icons';
+import { icons } from '../../../constants/icons';
 
 export type TabName = 'Inicio' | 'Explorar' | 'Favoritos' | 'Perfil';
 
@@ -16,7 +16,7 @@ export interface BottomNavBarProps {
 
 interface TabItemProps {
   label: TabName;
-  iconName: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+  iconName: React.ComponentProps<typeof MaterialIcons>['name'];
   isActive: boolean;
   onPress: () => void;
 }
@@ -29,7 +29,7 @@ const TabItem: React.FC<TabItemProps> = ({ label, iconName, isActive, onPress })
     accessibilityState={{ selected: isActive }}
   >
     <View style={[styles.contentWrapper, isActive && styles.contentWrapperActive]}>
-      <MaterialCommunityIcons 
+      <MaterialIcons 
         name={iconName} 
         size={22} 
         color={isActive ? colors.primary : colors.button_gray}
@@ -50,25 +50,25 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
     <View style={styles.navBarContainer}>
       <TabItem 
         label="Inicio" 
-        iconName={iconsName.Home} 
+        iconName={icons.Home} 
         isActive={activeTab === 'Inicio'} 
         onPress={() => onTabPress?.('Inicio')} 
       />
       <TabItem 
         label="Explorar" 
-        iconName={iconsName.Explore} 
+        iconName={icons.Explore} 
         isActive={activeTab === 'Explorar'} 
         onPress={() => onTabPress?.('Explorar')} 
       />
       <TabItem 
         label="Favoritos" 
-        iconName={iconsName.Favorites} 
+        iconName={icons.Favorite} 
         isActive={activeTab === 'Favoritos'} 
         onPress={() => onTabPress?.('Favoritos')} 
       />
       <TabItem 
         label="Perfil" 
-        iconName={iconsName.Person} 
+        iconName={icons.Person} 
         isActive={activeTab === 'Perfil'} 
         onPress={() => onTabPress?.('Perfil')} 
       />

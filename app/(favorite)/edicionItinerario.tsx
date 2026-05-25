@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Alert, ScrollView, StatusBar, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors } from '../../../constants/colors';
-import { ActivityCard } from './components/ActivityCard/ActivityCard';
-import { Button } from './components/Button/Button';
-import { EditModal } from './components/EditModal/EditModal';
-import { Header } from '../../common/Header/Header';
-import { InputTitulo } from './components/InputTitulo/InputTitulo';
-import { styles } from './EdicionItinerario.styles';
+import { Stack, useRouter } from 'expo-router';
+import { colors } from '../../constants/colors';
+import { ActivityCard } from '../../components/favorites_components/itinerary_edit/components/ActivityCard/ActivityCard';
+import { Button } from '../../components/favorites_components/itinerary_edit/components/Button/Button';
+import { EditModal } from '../../components/favorites_components/itinerary_edit/components/EditModal/EditModal';
+import { Header } from '../../components/common/Header/Header';
+import { InputTitulo } from '../../components/favorites_components/itinerary_edit/components/InputTittle/InputTitulo';
+import { styles } from './edicionItinerario.styles';
 
 // Mock de datos
 const INITIAL_ACTIVITIES = [
@@ -61,10 +62,11 @@ const INITIAL_ACTIVITIES = [
   },
 ];
 
-export const EdicionItinerario: React.FC = () => {
+export default function EdicionItinerarioScreen() {
   const [title, setTitle] = useState('Explorando la Patagonia');
   const [activities, setActivities] = useState(INITIAL_ACTIVITIES);
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
   // Edit Modal State
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -109,7 +111,7 @@ export const EdicionItinerario: React.FC = () => {
     Alert.alert(
       'Cambios Guardados',
       `El itinerario "${title}" con ${activities.length} actividades ha sido guardado con éxito.`,
-      [{ text: 'Aceptar' }]
+      [{ text: 'Aceptar', onPress: () => router.back() }]
     );
   };
 
@@ -118,10 +120,13 @@ export const EdicionItinerario: React.FC = () => {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.background }]}>
+      <Stack.Screen options={{ headerShown: false }} />
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
 
       <Header
         title="Editar Itinerario"
+        showBackButton={true}
+        onBackPress={() => router.back()}
         onThemeTogglePress={() => Alert.alert('Tema', 'Cambio de tema no implementado.')}
         onAvatarPress={() => Alert.alert('Perfil', 'Navegación al perfil de usuario.')}
       />
@@ -179,4 +184,4 @@ export const EdicionItinerario: React.FC = () => {
       />
     </View>
   );
-};
+}

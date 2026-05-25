@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../constants/colors';
-import { fonts } from '../../../constants/fonts';
-import { paddings } from '../../../constants/paddings';
+import { colors } from '../../constants/colors';
+import { fonts } from '../../constants/fonts';
+import { paddings } from '../../constants/paddings';
 
 export const styles = StyleSheet.create({
   safeArea: {
@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingTop: paddings.spacing.xl, // 20px gap between Header and first field
-    paddingBottom: paddings.spacing.huge, // Extra spacing at the bottom after the button
+    paddingTop: paddings.spacing.xl,
+    paddingBottom: paddings.spacing.huge,
   },
   titleInputWrapper: {
     marginBottom: paddings.spacing.md,
@@ -29,9 +29,9 @@ export const styles = StyleSheet.create({
   },
   dayTitle: {
     fontFamily: fonts.family.bodySemiBold,
-    fontSize: fonts.size.sm, // 14px matching Día 1 / Día 2 in Figma
+    fontSize: fonts.size.sm,
     fontWeight: fonts.weight.semibold,
-    color: '#6b7280', // Matches Figma text-[#6b7280]
+    color: colors.textSecondary,
     textAlign: 'center',
     marginBottom: paddings.spacing.md,
   },
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   buttonWrapper: {
-    paddingHorizontal: 25, // Matches Figma x=25 (width 340 on 390 screen)
+    paddingHorizontal: 25,
     marginTop: paddings.spacing.md,
     marginBottom: paddings.spacing.lg,
   },

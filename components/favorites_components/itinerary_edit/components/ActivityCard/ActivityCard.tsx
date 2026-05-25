@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { colors } from '../../../../../constants/colors';
-import { iconsName } from '../../../../../constants/icons';
+import { icons } from '../../../../../constants/icons';
 import { styles } from './ActivityCard.styles';
 
 export interface ActivityCardProps {
@@ -31,7 +31,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.timeText}>{time}</Text>
-
+ 
       <View style={styles.bottomInfoRow}>
         <View style={styles.detailsColumn}>
           <Text style={styles.titleText} numberOfLines={1}>
@@ -42,7 +42,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           </Text>
           <View style={styles.locationRow}>
             <MaterialIcons 
-              name={iconsName.Location}
+              name={icons.Location}
               size={12}
               color={colors.textSecondary}
             />
@@ -51,7 +51,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             </Text>
           </View>
         </View>
-
+ 
         <View style={styles.actionsRow}>
           <Pressable
             onPress={onEditPress}
@@ -64,12 +64,12 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             accessibilityLabel="Editar actividad"
           >
             <MaterialIcons 
-              name={iconsName.Edit}
+              name={icons.Edit}
               size={16}
               color={colors.primary}
             />
           </Pressable>
-
+ 
           <Pressable
             onPress={onDeletePress}
             style={({ pressed }) => [
@@ -81,7 +81,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             accessibilityLabel="Eliminar actividad"
           >
             <MaterialIcons 
-              name={iconsName.Delete}
+              name={icons.Delete}
               size={16}
               color={colors.danger}
             />

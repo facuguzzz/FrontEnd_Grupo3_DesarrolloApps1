@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { styles } from './EmptyState.styles';
 import { colors } from '../../../../../constants/colors';
-import { iconsName } from '../../../../../constants/icons';
+import { icons } from '../../../../../constants/icons';
 
 export interface EmptyStateProps {
   /** The main title for the empty state */
@@ -26,7 +26,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     <View style={styles.container}>
       <View style={styles.iconContainer}>
         <MaterialIcons 
-          name={iconsName.Save}
+          name={icons.Save}
           size={32}
           color={colors.primary}
         />
@@ -48,7 +48,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         accessibilityLabel={actionLabel}
       >
         <MaterialIcons 
-          name={iconsName.Compass}
+          name={icons.Explore}
           size={16}
           color={colors.black}
         />

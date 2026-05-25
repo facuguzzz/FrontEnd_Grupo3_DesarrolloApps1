@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/common/Header/Header';
 import { COLORS } from '@/src/styles/colors';
 
 const { width } = Dimensions.get('window');
