@@ -1,4 +1,4 @@
-export const COLORS = {
+export const colors = {
   primaryBlue: '#2F65E3',
   gradientStart: '#4C7BF4',
   gradientEnd: '#1E40AF',
@@ -13,3 +13,5 @@ export const COLORS = {
   buttonText: '#ffffff',
   linkText: '#2F65E3',
 };
+
+export const COLORS = colors;

@@ -1,21 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '../../components/common/Header/Header';
 import { CardItinerarioInfo } from '../../components/Explorar/Card-Itinerario-Info';
 import { CardActividad } from '../../components/common/ActivityCard/ActivityCard';
 
 export default function ItinerarioInfo() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <Stack.Screen options={{ headerShown: false }} />
 
       {/* Header */}
-      <View style={{ paddingHorizontal: 20 }}>
-        <Header title="Explorar" />
-      </View>
+      <Header title="Explorar" />
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 
