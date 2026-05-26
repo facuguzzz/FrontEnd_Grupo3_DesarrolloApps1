@@ -65,7 +65,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           >
             <MaterialIcons
               name={icons.Edit}
-              size={16}
+              size={20}
               color={colors.primary}
             />
           </Pressable>
@@ -82,7 +82,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           >
             <MaterialIcons
               name={icons.Delete}
-              size={16}
+              size={20}
               color={colors.danger}
             />
           </Pressable>

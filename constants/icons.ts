@@ -22,7 +22,7 @@ export const icons = {
   Compass: 'compass',
   Location: 'location-on',
   Download: 'download',
-  Pin: 'pin',
+  Pin: 'push-pin',
   Edit: 'edit',
   Delete: 'delete',
   'chevron.right': 'keyboard-arrow-right',

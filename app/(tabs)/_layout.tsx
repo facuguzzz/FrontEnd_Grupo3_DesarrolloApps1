@@ -1,102 +1,79 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
-import { HapticTab } from '@/components/haptic-tab';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '@/src/styles/colors';
+import { BottomNavBar, TabName } from '../../components/common/BottomNavBar/BottomNavBar';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
-
   return (
     <Tabs
+      tabBar={(props) => {
+        const { state, navigation } = props;
+        const routeMap: Record<string, TabName> = {
+          index: 'Inicio',
+          explorar: 'Explorar',
+          favoritos: 'Favoritos',
+          perfil: 'Perfil',
+        };
+        // Normalize route mapping:
+        // routes inside state.routes can be index, explorar, favoritos, perfil, explore
+        const currentRouteName = state.routes[state.index].name;
+        
+        let activeTab: TabName = 'Inicio';
+        if (currentRouteName === 'explorar') activeTab = 'Explorar';
+        else if (currentRouteName === 'favoritos') activeTab = 'Favoritos';
+        else if (currentRouteName === 'perfil') activeTab = 'Perfil';
+
+        const handleTabPress = (tabName: TabName) => {
+          let targetRoute = 'index';
+          if (tabName === 'Explorar') targetRoute = 'explorar';
+          else if (tabName === 'Favoritos') targetRoute = 'favoritos';
+          else if (tabName === 'Perfil') targetRoute = 'perfil';
+
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: state.routes.find((r) => r.name === targetRoute)?.key,
+            canPreventDefault: true,
+          });
+
+          if (!event.defaultPrevented) {
+            navigation.navigate(targetRoute);
+          }
+        };
+
+        return (
+          <BottomNavBar
+            activeTab={activeTab}
+            onTabPress={handleTabPress}
+          />
+        );
+      }}
       screenOptions={{
-        tabBarActiveTintColor: COLORS.primaryBlue,
-        tabBarInactiveTintColor: isDark ? '#9CA3AF' : '#6B7280',
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarStyle: {
-          backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
-          borderTopWidth: 1,
-          borderTopColor: isDark ? '#374151' : '#E5E7EB',
-          height: Platform.OS === 'ios' ? 88 : 64,
-          paddingBottom: Platform.OS === 'ios' ? 28 : 10,
-          paddingTop: 8,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.05,
-          shadowRadius: 10,
-          elevation: 8,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
-          fontFamily: 'Inter-Bold',
-        },
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Inicio',
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'home-sharp' : 'home-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
-              />
-            </View>
-          ),
         }}
       />
       <Tabs.Screen
         name="explorar"
         options={{
           title: 'Explorar',
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'compass-sharp' : 'compass-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
-              />
-            </View>
-          ),
         }}
       />
       <Tabs.Screen
         name="favoritos"
         options={{
           title: 'Favoritos',
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'heart-sharp' : 'heart-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
-              />
-            </View>
-          ),
         }}
       />
       <Tabs.Screen
         name="perfil"
         options={{
           title: 'Perfil',
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
-              <Ionicons 
-                name={focused ? 'person-sharp' : 'person-outline'} 
-                size={22} 
-                color={focused ? COLORS.primaryBlue : color} 
-              />
-            </View>
-          ),
         }}
       />
-      {/* Ocultamos la pestaña original de boilerplate 'explore' */}
       <Tabs.Screen
         name="explore"
         options={{
@@ -107,15 +84,3 @@ export default function TabLayout() {
   );
 }
 
-const styles = StyleSheet.create({
-  iconContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 4,
-    borderRadius: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  activeIconContainer: {
-    backgroundColor: '#EEF2FF', // Color suave de fondo para la pestaña activa
-  },
-});
