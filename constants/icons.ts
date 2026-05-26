@@ -1,10 +1,9 @@
-export const iconsName = {
+export const icons = {
   // Generales
   AddItinerary: 'add-location-alt',
   EmptyCalendar: 'calendar-today',
   FullCalendar: 'calendar-month',
   RocketLaunch: 'rocket-launch',
-  Save: 'bookmark', 
   Schedule: 'schedule',
   PhotoCamera: 'photo-camera',
   Logout: 'logout',
@@ -13,18 +12,17 @@ export const iconsName = {
   Download: 'file-download',
   Pin: 'push-pin',
   Compass: 'explore',
+  Edit: 'edit',
+  CalendarToday: 'calendar-today',
+  ArrowBack: 'arrow-back',
+  FavoriteFilled: 'favorite',
+  FavoriteOutline: 'favorite-outline',
+  Save: 'bookmark-border',
 
   //Contraseña
   Lock: 'lock',
   Visibility: 'visibility',
   VisibilityOff: 'visibility-off',
-  Save: 'save',
-  CloudOffline: 'cloud-off',
-  Compass: 'compass',
-  Location: 'location-on',
-  Download: 'download',
-  Pin: 'push-pin',
-  Edit: 'edit',
   Delete: 'delete',
   'chevron.right': 'keyboard-arrow-right',
   'chevron.left.forwardslash.chevron.right': 'code',
@@ -48,6 +46,3 @@ export const iconsName = {
   Favorite: 'favorite',
 } as const;
 
-// Tipos para asegurar autocompletado en tus componentes
-export type AppIconKey = keyof typeof icons;
-export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
