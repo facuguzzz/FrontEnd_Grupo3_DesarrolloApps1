@@ -1,10 +1,9 @@
-export const iconsName = {
+export const icons = {
   // Generales
   AddItinerary: 'add-location-alt',
   EmptyCalendar: 'calendar-today',
   FullCalendar: 'calendar-month',
   RocketLaunch: 'rocket-launch',
-  Save: 'bookmark', 
   Schedule: 'schedule',
   PhotoCamera: 'photo-camera',
   Logout: 'logout',
@@ -13,23 +12,20 @@ export const iconsName = {
   Download: 'file-download',
   Pin: 'push-pin',
   Compass: 'explore',
+  Edit: 'edit',
+  CalendarToday: 'calendar-today',
+  ArrowBack: 'arrow-back',
+  FavoriteFilled: 'favorite',
+  FavoriteOutline: 'favorite-outline',
+  Save: 'bookmark-border',
 
   //Contraseña
   Lock: 'lock',
   Visibility: 'visibility',
   VisibilityOff: 'visibility-off',
-
-  //Editar Actividad
-  Edit: 'edit',
   Delete: 'delete',
-
-  //Favorite Button
-  FavoriteOutline: 'favorite-border', 
-  FavoriteFilled: 'favorite', 
-
-  //MoveButtons
-  ArrowForward: 'arrow-forward',
-  ArrowBack: 'arrow-back',
+  'chevron.right': 'keyboard-arrow-right',
+  'chevron.left.forwardslash.chevron.right': 'code',
 
   // Activities Icons
   Landscape: 'landscape',
@@ -45,7 +41,8 @@ export const iconsName = {
 
   // Navbar
   Home: 'home',
-  Explore: 'compass',
-  Favorites: 'heart',
-  Person: 'account',
-};
+  Explore: 'explore',
+  Person: 'person',
+  Favorite: 'favorite',
+} as const;
+

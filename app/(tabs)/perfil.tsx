@@ -1,17 +1,8 @@
-import { Header } from '@/components/Header';
-import { useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-const COLORS = {
-  primary: '#2F4FCD',
-  danger: '#C0392B',
-  bg: '#F4F5F7',
-  card: '#FFFFFF',
-  text: '#1A1A2E',
-  gray: '#8A8A9E',
-  border: '#E2E4EA',
-};
+import { View, StyleSheet, Text } from 'react-native';
+import { Header } from '@/components/common/Header/Header';
+import { COLORS } from '@/src/styles/colors';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function PerfilScreen() {
   const router = useRouter();

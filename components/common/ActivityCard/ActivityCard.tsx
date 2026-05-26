@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../../constants/colors';
+import { fonts } from '../../../constants/fonts';
 
 type Props = {
   time: string;
@@ -17,7 +19,7 @@ export function CardActividad({ time, title, subtitle, location, isLast = false 
       <Text style={styles.eventTitle}>{title}</Text>
       <Text style={styles.eventSubtitle}>{subtitle}</Text>
       <View style={styles.eventLocationRow}>
-        <Ionicons name="location-outline" size={14} color="#6B7280" />
+        <Ionicons name="location-outline" size={14} color={colors.textSecondary} />
         <Text style={styles.eventLocationText}>{location}</Text>
       </View>
     </View>
@@ -32,20 +34,23 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   eventTime: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#2563EB',
+    fontFamily: fonts.family.bodySemiBold,
+    fontSize: fonts.size.sm, // 14px
+    fontWeight: fonts.weight.semibold,
+    color: colors.primary,
     marginBottom: 4,
   },
   eventTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#111827',
+    fontFamily: fonts.family.headingBold,
+    fontSize: fonts.size.md, // 16px
+    fontWeight: fonts.weight.bold,
+    color: colors.text,
     marginBottom: 2,
   },
   eventSubtitle: {
-    fontSize: 14,
-    color: '#6B7280',
+    fontFamily: fonts.family.bodyRegular,
+    fontSize: fonts.size.sm, // 14px
+    color: colors.textSecondary,
     marginBottom: 4,
   },
   eventLocationRow: {
@@ -54,7 +59,8 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   eventLocationText: {
-    fontSize: 13,
-    color: '#6B7280',
+    fontFamily: fonts.family.bodyRegular,
+    fontSize: fonts.size.xs, // 13px
+    color: colors.textSecondary,
   },
 });

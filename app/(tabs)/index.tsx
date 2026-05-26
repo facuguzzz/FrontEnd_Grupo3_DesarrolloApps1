@@ -1,9 +1,7 @@
 import { Header } from '@/components/Header';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Header } from '@/components/common/Header/Header';
+import { COLORS } from '@/src/styles/colors';
 
 const { width } = Dimensions.get('window');
 
