@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
   Image,
@@ -105,6 +105,7 @@ export default function RecomendacionesScreen() {
 
   return (
     <View style={[styles.screen, { paddingTop: insets.top }]}>
+      <Stack.Screen options={{ headerShown: false }} />
       {/* Header azul de resultados */}
       <View style={styles.headerAzul}>
         <TouchableOpacity

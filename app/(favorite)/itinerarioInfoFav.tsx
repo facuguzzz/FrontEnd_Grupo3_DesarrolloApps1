@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '../../components/common/Header/Header';
 import { CardItinerarioInfoFav } from '../../components/favorites_components/Card-Itinerario-Info-Fav';
 import { CardActividad } from '../../components/common/ActivityCard/ActivityCard';
@@ -8,18 +9,17 @@ import { styles } from './itinerarioInfoFav.styles';
 
 export default function ItinerarioInfoFav() {
     const router = useRouter();
+    const insets = useSafeAreaInsets();
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { paddingTop: insets.top }]}>
             <Stack.Screen options={{ headerShown: false }} />
 
-            <View style={styles.headerContainer}>
-                <Header
-                    title="Inicio"
-                    onThemeTogglePress={() => {}}
-                    onAvatarPress={() => {}}
-                />
-            </View>
+            <Header
+                title="Inicio"
+                onThemeTogglePress={() => {}}
+                onAvatarPress={() => {}}
+            />
 
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 

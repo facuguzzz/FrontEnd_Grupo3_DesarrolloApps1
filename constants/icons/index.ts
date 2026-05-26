@@ -46,7 +46,7 @@ export const icons = {
   Explore: 'explore',
   Person: 'person',
   Heart: 'favorite',
-} as const satisfies Record<string, SymbolViewProps['name']>;
+} as const satisfies Record<string, string>;
 
 export type AppIconKey = keyof typeof icons;
 export type MaterialIconName = typeof icons[AppIconKey];

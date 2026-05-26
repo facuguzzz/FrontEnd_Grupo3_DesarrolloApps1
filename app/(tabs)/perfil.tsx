@@ -1,17 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '@/components/common/Header/Header';
-import { COLORS } from '@/src/styles/colors';
-import { Ionicons } from '@expo/vector-icons';
+import { colors } from '@/constants/colors';
 
 export default function PerfilScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
-      <View style={{ paddingHorizontal: 20 }}>
-        <Header title="Perfil" />
-      </View>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      <Header title="Perfil" />
 
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.avatarCard}>
@@ -40,8 +40,6 @@ export default function PerfilScreen() {
           <Text style={styles.chevron}>›</Text>
         </TouchableOpacity>
 
-
-
         <TouchableOpacity style={styles.logoutBtn}>
           <Text style={styles.logoutText}>⏻  Cerrar Sesión</Text>
         </TouchableOpacity>
@@ -53,20 +51,20 @@ export default function PerfilScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.bg,
+    backgroundColor: colors.background,
   },
   scroll: {
     padding: 20,
     paddingBottom: 40,
   },
   avatarCard: {
-    backgroundColor: COLORS.card,
+    backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: colors.border,
   },
   avatarCircle: {
     width: 90,
@@ -80,28 +78,28 @@ const styles = StyleSheet.create({
   avatarInitials: {
     fontSize: 28,
     fontWeight: '700',
-    color: COLORS.primary,
+    color: colors.primary,
   },
   nombre: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.text,
+    color: colors.text,
   },
   email: {
     fontSize: 13,
-    color: COLORS.gray,
+    color: colors.textSecondary,
     marginTop: 4,
   },
   sectionLabel: {
     fontSize: 12,
     fontWeight: '700',
-    color: COLORS.gray,
+    color: colors.textSecondary,
     marginTop: 16,
     marginBottom: 8,
     letterSpacing: 0.5,
   },
   optionRow: {
-    backgroundColor: COLORS.card,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
@@ -109,33 +107,31 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: colors.border,
   },
   optionText: {
     fontSize: 15,
-    color: COLORS.text,
+    color: colors.text,
     fontWeight: '500',
   },
   optionSub: {
     fontSize: 12,
-    color: COLORS.gray,
+    color: colors.textSecondary,
     marginTop: 2,
   },
   chevron: {
     fontSize: 22,
-    color: COLORS.gray,
+    color: colors.textSecondary,
   },
   logoutBtn: {
     borderWidth: 1.5,
-    borderColor: COLORS.danger,
+    borderColor: colors.danger,
     borderRadius: 12,
     padding: 14,
     alignItems: 'center',
     marginTop: 12,
   },
   logoutText: {
-    color: COLORS.danger,
-    fontWeight: '700',
-    fontSize: 15,
-  },
-});
+    color: colors.danger,
+  }
+})
