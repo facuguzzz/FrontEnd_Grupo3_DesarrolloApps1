@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewProps } from 'react-native';
-import { COLORS } from '../styles/colors';
+import { COLORS } from '../src/styles/colors';
 
 interface BottomSheetProps extends ViewProps {
   children: React.ReactNode;

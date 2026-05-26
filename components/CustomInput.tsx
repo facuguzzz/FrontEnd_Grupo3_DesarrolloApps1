@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, TextInputProps, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '../styles/colors';
+import { COLORS } from '../src/styles/colors';
 
 interface CustomInputProps extends TextInputProps {
   iconName?: keyof typeof Ionicons.glyphMap;
@@ -14,7 +14,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({ iconName, style, ...pr
         <Ionicons name={iconName} size={20} color={COLORS.textLight} style={styles.icon} />
       )}
       <TextInput
-        style={[styles.input, iconName && styles.inputWithIcon, style]}
+        style={[styles.input, iconName ? styles.inputWithIcon : undefined, style]}
         placeholderTextColor={COLORS.textLight}
         {...props}
       />

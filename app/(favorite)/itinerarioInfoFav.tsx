@@ -6,7 +6,7 @@ import { CardItinerarioInfoFav } from '../../components/favorites_components/Car
 import { CardActividad } from '../../components/common/ActivityCard/ActivityCard';
 import { styles } from './itinerarioInfoFav.styles';
 
-export default function itinerarioInfoFav() {
+export default function ItinerarioInfoFav() {
     const router = useRouter();
 
     return (

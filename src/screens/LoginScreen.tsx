@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, SafeAreaView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Toast from 'react-native-toast-message';
 import { useRouter } from 'expo-router';
 import { COLORS } from '../styles/colors';
-import { CustomInput } from '../components/CustomInput';
-import { CustomButton } from '../components/CustomButton';
-import { BottomSheet } from '../components/BottomSheet';
-import { HeaderLogo } from '../components/HeaderLogo';
+import { CustomInput } from '../../components/CustomInput';
+import { CustomButton } from '../../components/CustomButton';
+import { BottomSheet } from '../../components/BottomSheet';
+import { HeaderLogo } from '../../components/HeaderLogo';
 
 export const LoginScreen: React.FC = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ export const LoginScreen: React.FC = () => {
     <LinearGradient colors={[COLORS.gradientStart, COLORS.gradientEnd]} style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <KeyboardAvoidingView 
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={styles.keyboardView}
         >
           <View style={styles.topSection}>

@@ -14,5 +14,4 @@ export const colors = {
   danger: '#FF3B30',
   transparent: 'transparent',
   black: '#000000',
-  button_gray: '#8E8E93',
 };

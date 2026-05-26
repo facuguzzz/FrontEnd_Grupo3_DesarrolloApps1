@@ -1,9 +1,19 @@
 import { Platform } from "react-native";
+import Constants from "expo-constants";
 
-// En Android el emulador usa 10.0.2.2 para acceder al localhost de la PC
-// En iOS simulator y web, localhost funciona directo
-const HOST = Platform.OS === "android" ? "10.0.2.2" : "localhost";
-const BASE_URL = `http://${HOST}:8080`;
+// En web y simuladores, localhost funciona directo.
+// En dispositivos físicos (iOS y Android), hay que usar la IP de la PC.
+// Constants.expoConfig.hostUri tiene la IP del servidor de Expo (ej: "192.168.1.5:8081"),
+// de la cual extraemos la IP para armar la URL del backend.
+const getHost = (): string => {
+  if (Platform.OS === "web") return "localhost";
+  const expoHost = Constants.expoConfig?.hostUri?.split(":")[0];
+  if (expoHost) return expoHost;
+  // Fallback: emulador Android
+  return Platform.OS === "android" ? "10.0.2.2" : "localhost";
+};
+
+const BASE_URL = `http://${getHost()}:8080`;
 
 // Reemplazar con el token real antes de probar contra el backend
 export const AUTH_TOKEN =

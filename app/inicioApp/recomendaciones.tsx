@@ -1,22 +1,22 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
-  View,
-  Text,
+  Image,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
-  Image,
+  View,
 } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
-  CategoriaItinerario,
   CATEGORIA_LABEL,
+  CategoriaItinerario,
   ItinerarioSistemaResumenDTO,
   Provincia,
   PROVINCIA_LABEL,
-} from '../src/types/itinerario';
+} from '../../src/types/itinerario';
 
 function formatFechaCorta(iso: string) {
   if (!iso) return '';

@@ -1,20 +1,21 @@
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-export const icons = {
+export const iconsName = {
   // Generales
-  ArrowForward: 'arrow-forward',
-  ArrowBack: 'arrow-back',
-  AddLocationAlt: 'add-location-alt',
-  CalendarToday: 'calendar-today',
-  CalendarMonth: 'calendar-month',
+  AddItinerary: 'add-location-alt',
+  EmptyCalendar: 'calendar-today',
+  FullCalendar: 'calendar-month',
   RocketLaunch: 'rocket-launch',
-  FavoriteOutline: 'favorite-border', // favorite (borde)
-  FavoriteFilled: 'favorite', // favorite (filled)
-  Keep: 'bookmark', // Equivalente común para guardar/keep
+  Save: 'bookmark', 
   Schedule: 'schedule',
   PhotoCamera: 'photo-camera',
-  Lock: 'lock',
   Logout: 'logout',
+  Location: 'place',
+  CloudOffline: 'cloud-off',
+  Download: 'file-download',
+  Pin: 'push-pin',
+  Compass: 'explore',
+
+  //Contraseña
+  Lock: 'lock',
   Visibility: 'visibility',
   VisibilityOff: 'visibility-off',
   Save: 'save',
