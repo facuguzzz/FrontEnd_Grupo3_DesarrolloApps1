@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Stack, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { ScrollView, StatusBar, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '../../components/common/Header/Header';
-import { ItineraryCard } from '../../components/favorites_components/favorite_principal/components/ItineraryCard/ItineraryCard';
-import { EmptyState } from '../../components/favorites_components/favorite_principal/components/EmptyState/EmptyState';
-import { styles } from './favoritos.styles';
+import { ItineraryCard } from '../../components/favorites_components/favorite_principal/ItineraryCard/ItineraryCard';
+import { EmptyState } from '../../components/favorites_components/favorite_principal/EmptyState/EmptyState';
 import { colors } from '../../constants/colors';
+import { styles } from './favoritos.styles';
 
 // Mock data to demonstrate the populated state
 const MOCK_ITINERARIES = [
@@ -38,13 +38,13 @@ export default function FavoritosScreen() {
   const router = useRouter();
 
   const handleToggleFavorite = (id: string) => {
-    setItineraries(prev => 
+    setItineraries(prev =>
       prev.map(item => item.id === id ? { ...item, isFavorite: !item.isFavorite } : item)
     );
   };
 
   const handleTogglePin = (id: string) => {
-    setItineraries(prev => 
+    setItineraries(prev =>
       prev.map(item => {
         if (item.id === id) {
           return { ...item, isPinned: !item.isPinned };
@@ -56,7 +56,7 @@ export default function FavoritosScreen() {
   };
 
   const handleToggleDownload = (id: string) => {
-    setItineraries(prev => 
+    setItineraries(prev =>
       prev.map(item => item.id === id ? { ...item, isOfflineAvailable: !item.isOfflineAvailable } : item)
     );
   };
@@ -65,15 +65,15 @@ export default function FavoritosScreen() {
     <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.background }]}>
       <Stack.Screen options={{ headerShown: false }} />
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
-      
+
       <View style={styles.container}>
-        <Header 
+        <Header
           title="Favoritos"
           onThemeTogglePress={() => console.log('Toggle theme')}
           onAvatarPress={() => console.log('Navigate to profile settings')}
         />
 
-        <ScrollView 
+        <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -103,10 +103,10 @@ export default function FavoritosScreen() {
                   onDownloadPress={() => handleToggleDownload(itinerary.id)}
                 />
               ))}
-              
+
               {/* Demonstration EmptyState at the bottom */}
               <View style={styles.emptyStateDemoContainer}>
-                <EmptyState 
+                <EmptyState
                   title="Aún no tienes favoritos"
                   description="Explora destinos increíbles y guarda los itinerarios que más te gusten para tenerlos siempre a mano."
                   actionLabel="Ir a Explorar"
@@ -116,7 +116,7 @@ export default function FavoritosScreen() {
             </View>
           ) : (
             <View style={styles.emptyStateContainer}>
-              <EmptyState 
+              <EmptyState
                 title="Aún no tienes favoritos"
                 description="Explora destinos increíbles y guarda los itinerarios que más te gusten para tenerlos siempre a mano."
                 actionLabel="Ir a Explorar"

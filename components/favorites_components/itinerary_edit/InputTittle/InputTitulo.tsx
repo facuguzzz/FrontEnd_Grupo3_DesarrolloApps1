@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
-import { colors } from '../../../../../constants/colors';
+import { colors } from '../../../../constants/colors';
 import { styles } from './InputTitulo.styles';
 
 export interface InputTituloProps {

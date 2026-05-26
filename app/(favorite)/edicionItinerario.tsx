@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView, StatusBar, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Stack, useRouter } from 'expo-router';
-import { colors } from '../../constants/colors';
-import { ActivityCard } from '../../components/favorites_components/itinerary_edit/components/ActivityCard/ActivityCard';
-import { Button } from '../../components/favorites_components/itinerary_edit/components/Button/Button';
-import { EditModal } from '../../components/favorites_components/itinerary_edit/components/EditModal/EditModal';
 import { Header } from '../../components/common/Header/Header';
-import { InputTitulo } from '../../components/favorites_components/itinerary_edit/components/InputTittle/InputTitulo';
+import { ActivityCard } from '../../components/favorites_components/itinerary_edit/ActivityCard/ActivityCard';
+import { Button } from '../../components/favorites_components/itinerary_edit/Button/Button';
+import { CreateActivityCard } from '../../components/favorites_components/itinerary_edit/CreateActivityCard/CreateActivityCard';
+import { InputTitulo } from '../../components/favorites_components/itinerary_edit/InputTittle/InputTitulo';
+import { colors } from '../../constants/colors';
 import { styles } from './edicionItinerario.styles';
 
 // Mock de datos
@@ -68,23 +68,68 @@ export default function EdicionItinerarioScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
-  // Edit Modal State
-  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [editingActivity, setEditingActivity] = useState<{ id: string; title: string } | null>(null);
+  const params = useLocalSearchParams<{
+    updatedActivityId?: string;
+    updatedTitle?: string;
+    updatedDescription?: string;
+    updatedTime?: string;
+    updatedLocation?: string;
+    updatedDay?: string;
+  }>();
 
-  const handleEditActivity = (id: string, currentTitle: string) => {
-    setEditingActivity({ id, title: currentTitle });
-    setIsEditModalVisible(true);
-  };
-
-  const handleSaveActivityTitle = (newTitle: string) => {
-    if (editingActivity) {
-      setActivities((prev) =>
-        prev.map((act) => (act.id === editingActivity.id ? { ...act, title: newTitle } : act))
-      );
+  useEffect(() => {
+    if (params.updatedActivityId) {
+      setActivities((prev) => {
+        const exists = prev.some((act) => act.id === params.updatedActivityId);
+        if (exists) {
+          return prev.map((act) =>
+            act.id === params.updatedActivityId
+              ? {
+                  ...act,
+                  title: params.updatedTitle || act.title,
+                  description: params.updatedDescription || act.description,
+                  time: params.updatedTime || act.time,
+                  location: params.updatedLocation || act.location,
+                  day: params.updatedDay ? parseInt(params.updatedDay, 10) : act.day,
+                }
+              : act
+          );
+        } else {
+          return [
+            ...prev,
+            {
+              id: params.updatedActivityId!,
+              title: params.updatedTitle || 'Nueva Actividad',
+              description: params.updatedDescription || '',
+              time: params.updatedTime || '12:00',
+              location: params.updatedLocation || '',
+              day: params.updatedDay ? parseInt(params.updatedDay, 10) : 1,
+            },
+          ];
+        }
+      });
     }
-    setIsEditModalVisible(false);
-    setEditingActivity(null);
+  }, [
+    params.updatedActivityId,
+    params.updatedTitle,
+    params.updatedDescription,
+    params.updatedTime,
+    params.updatedLocation,
+    params.updatedDay,
+  ]);
+
+  const handleEditActivity = (activity: typeof INITIAL_ACTIVITIES[0]) => {
+    router.push({
+      pathname: '/edit_activity_formulary',
+      params: {
+        id: activity.id,
+        day: String(activity.day),
+        time: activity.time,
+        title: activity.title,
+        description: activity.description,
+        location: activity.location,
+      },
+    });
   };
 
   const handleDeleteActivity = (id: string, activityTitle: string) => {
@@ -105,6 +150,21 @@ export default function EdicionItinerarioScreen() {
         },
       ]
     );
+  };
+
+  const handleAddActivity = (dayNum: number) => {
+    const newId = `act-${Date.now()}`;
+    router.push({
+      pathname: '/edit_activity_formulary',
+      params: {
+        id: newId,
+        day: String(dayNum),
+        time: '',
+        title: '',
+        description: '',
+        location: '',
+      },
+    });
   };
 
   const handleSaveChanges = () => {
@@ -154,20 +214,22 @@ export default function EdicionItinerarioScreen() {
                     title={activity.title}
                     description={activity.description}
                     location={activity.location}
-                    onEditPress={() => handleEditActivity(activity.id, activity.title)}
+                    onEditPress={() => handleEditActivity(activity)}
                     onDeletePress={() => handleDeleteActivity(activity.id, activity.title)}
                   />
                 ))}
+                <CreateActivityCard onPress={() => handleAddActivity(dayNum)} />
               </View>
             </View>
           );
         })}
 
         {activities.length === 0 && (
-          <View style={{ padding: 40, alignItems: 'center' }}>
-            <Text style={{ color: colors.textSecondary, fontFamily: 'Inter_400Regular' }}>
+          <View style={{ padding: 20, alignItems: 'center', width: '100%' }}>
+            <Text style={{ color: colors.textSecondary, fontFamily: 'Inter_400Regular', marginBottom: 16 }}>
               No hay actividades en este itinerario.
             </Text>
+            <CreateActivityCard onPress={() => handleAddActivity(1)} />
           </View>
         )}
 
@@ -176,12 +238,7 @@ export default function EdicionItinerarioScreen() {
         </View>
       </ScrollView>
 
-      <EditModal
-        visible={isEditModalVisible}
-        onClose={() => setIsEditModalVisible(false)}
-        onSave={handleSaveActivityTitle}
-        initialValue={editingActivity?.title || ''}
-      />
+
     </View>
   );
 }

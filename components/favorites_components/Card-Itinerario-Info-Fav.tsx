@@ -4,6 +4,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
 import { icons } from '../../constants/icons';
 import { colors } from '../../constants/colors';
+import { fonts } from '../../constants/fonts';
+import { paddings } from '../../constants/paddings';
 
 type Props = {
     title?: string;
@@ -116,11 +118,11 @@ const styles = StyleSheet.create({
     contenedorImagen: {
         width: '100%',
         height: 280,
-        marginTop: 10,
-        borderRadius: 24,
+        marginTop: paddings.spacing.sm,
+        borderRadius: paddings.radius.xxl, // 24px
         overflow: 'hidden',
         position: 'relative',
-        shadowColor: "#000",
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 10,
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     },
     heroOverlay: {
         flex: 1,
-        padding: 16,
+        padding: paddings.spacing.lg, // 16px
         justifyContent: 'space-between',
         backgroundColor: 'rgba(0,0,0,0.2)',
     },
@@ -140,32 +142,34 @@ const styles = StyleSheet.create({
         width: 36,
         height: 36,
         borderRadius: 18,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.surface,
         justifyContent: 'center',
         alignItems: 'center',
     },
     contenedorInfoInferior: {
-        gap: 8,
+        gap: paddings.spacing.sm,
     },
     etiquetaCategoria: {
-        backgroundColor: '#FFFFFF',
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 20,
+        backgroundColor: colors.surface,
+        paddingHorizontal: paddings.spacing.md,
+        paddingVertical: paddings.spacing.xs,
+        borderRadius: paddings.radius.round,
         alignSelf: 'flex-start',
         flexDirection: 'row',
         alignItems: 'center',
     },
     etiquetaCategoriaTexto: {
-        color: '#111827',
-        fontSize: 13,
-        fontWeight: 'bold',
+        color: colors.text,
+        fontSize: fonts.size.xs,
+        fontFamily: fonts.family.bodySemiBold,
+        fontWeight: fonts.weight.semibold,
         marginLeft: 2,
     },
     titulo: {
-        color: '#FFFFFF',
-        fontSize: 32,
-        fontWeight: 'bold',
+        color: colors.textInverse,
+        fontSize: fonts.size.xxxl, // 32px
+        fontFamily: fonts.family.headingBold,
+        fontWeight: fonts.weight.bold,
         lineHeight: 36,
         textShadowColor: 'rgba(0,0,0,0.5)',
         textShadowOffset: { width: 0, height: 2 },
@@ -183,9 +187,10 @@ const styles = StyleSheet.create({
         gap: 6,
     },
     fechasTexto: {
-        color: '#FFFFFF',
-        fontSize: 14,
-        fontWeight: '600',
+        color: colors.textInverse,
+        fontSize: fonts.size.sm, // 14px
+        fontFamily: fonts.family.bodySemiBold,
+        fontWeight: fonts.weight.semibold,
         textShadowColor: 'rgba(0,0,0,0.5)',
         textShadowOffset: { width: 0, height: 1 },
         textShadowRadius: 3,
@@ -197,10 +202,11 @@ const styles = StyleSheet.create({
         gap: 27,
     },
     descripcion: {
-        fontSize: 16,
-        color: '#4B5563',
+        fontSize: fonts.size.md, // 16px
+        fontFamily: fonts.family.bodyRegular,
+        color: colors.textSecondary,
         textAlign: 'center',
-        marginTop: 20,
-        marginBottom: 24,
+        marginTop: paddings.spacing.xl,
+        marginBottom: paddings.spacing.xxl,
     },
 });

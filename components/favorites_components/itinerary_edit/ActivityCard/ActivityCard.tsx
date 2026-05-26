@@ -1,8 +1,8 @@
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { colors } from '../../../../../constants/colors';
-import { icons } from '../../../../../constants/icons';
+import { colors } from '../../../../constants/colors';
+import { icons } from '../../../../constants/icons';
 import { styles } from './ActivityCard.styles';
 
 export interface ActivityCardProps {
@@ -31,7 +31,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.timeText}>{time}</Text>
- 
+
       <View style={styles.bottomInfoRow}>
         <View style={styles.detailsColumn}>
           <Text style={styles.titleText} numberOfLines={1}>
@@ -41,7 +41,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             {description}
           </Text>
           <View style={styles.locationRow}>
-            <MaterialIcons 
+            <MaterialIcons
               name={icons.Location}
               size={12}
               color={colors.textSecondary}
@@ -51,7 +51,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             </Text>
           </View>
         </View>
- 
+
         <View style={styles.actionsRow}>
           <Pressable
             onPress={onEditPress}
@@ -63,13 +63,13 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             accessibilityRole="button"
             accessibilityLabel="Editar actividad"
           >
-            <MaterialIcons 
+            <MaterialIcons
               name={icons.Edit}
               size={16}
               color={colors.primary}
             />
           </Pressable>
- 
+
           <Pressable
             onPress={onDeletePress}
             style={({ pressed }) => [
@@ -80,7 +80,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             accessibilityRole="button"
             accessibilityLabel="Eliminar actividad"
           >
-            <MaterialIcons 
+            <MaterialIcons
               name={icons.Delete}
               size={16}
               color={colors.danger}

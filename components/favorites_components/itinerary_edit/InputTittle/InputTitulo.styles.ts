@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../../../constants/colors';
-import { fonts } from '../../../../../constants/fonts';
-import { paddings } from '../../../../../constants/paddings';
+import { colors } from '../../../../constants/colors';
+import { fonts } from '../../../../constants/fonts';
+import { paddings } from '../../../../constants/paddings';
 
 export const styles = StyleSheet.create({
   container: {

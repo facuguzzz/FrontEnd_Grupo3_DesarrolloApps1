@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import { View, Text, ImageBackground, Pressable, Animated } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React, { useRef } from 'react';
+import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
+import { colors } from '../../../../constants/colors';
+import { icons } from '../../../../constants/icons';
+import { FavoriteButton } from '../../../common/FavoriteButton/FavoriteButton';
+import { OfflineBadge } from '../../../common/OfflineBadge/OfflineBadge';
 import { styles } from './ItineraryCard.styles';
-import { colors } from '../../../../../constants/colors';
-import { icons } from '../../../../../constants/icons';
-import { OfflineBadge } from '../../../../common/OfflineBadge/OfflineBadge';
-import { FavoriteButton } from '../../../../common/FavoriteButton/FavoriteButton';
 
 export interface ItineraryCardProps {
   /** The main title of the itinerary */
@@ -71,9 +71,9 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
   return (
     <View style={styles.cardContainer}>
-      <ImageBackground 
-        source={{ uri: imageUrl }} 
-        style={styles.imageBackground} 
+      <ImageBackground
+        source={{ uri: imageUrl }}
+        style={styles.imageBackground}
         imageStyle={styles.imageStyle}
       >
         <View style={styles.topActionsRow}>
@@ -82,10 +82,10 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
           ) : (
             <View /> // Empty view to maintain space-between layout for the heart icon
           )}
-          
-          <FavoriteButton 
-            isFavorite={isFavorite} 
-            onPress={onFavoriteToggle} 
+
+          <FavoriteButton
+            isFavorite={isFavorite}
+            onPress={onFavoriteToggle}
           />
         </View>
       </ImageBackground>
@@ -97,9 +97,9 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
             <Text style={styles.durationText}>{duration}</Text>
           </View>
         </View>
-        
+
         <View style={styles.locationRow}>
-          <MaterialIcons 
+          <MaterialIcons
             name={icons.Location}
             size={16}
             color={colors.textSecondary}
@@ -110,7 +110,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
         <View style={styles.divider} />
 
         <View style={styles.footerRow}>
-          <Pressable 
+          <Pressable
             onPress={onPressDetail}
             onPressIn={() => handlePressIn(detailScale, 0.96)}
             onPressOut={() => handlePressOut(detailScale)}
@@ -121,21 +121,21 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
               <Text style={styles.detailButtonText}>Ver Detalle</Text>
             </Animated.View>
           </Pressable>
-          
+
           <View style={styles.rightActionsGroup}>
-            <Pressable 
+            <Pressable
               onPress={onDownloadPress}
               onPressIn={() => handlePressIn(downloadScale, 0.90)}
               onPressOut={() => handlePressOut(downloadScale)}
               style={[
-                styles.downloadButton, 
+                styles.downloadButton,
                 isOfflineAvailable && { backgroundColor: colors.surfaceHighlight, borderRadius: 20 }
               ]}
               accessibilityRole="button"
               accessibilityLabel={isOfflineAvailable ? "Eliminar descarga de itinerario" : "Descargar itinerario"}
             >
               <Animated.View style={{ transform: [{ scale: downloadScale }] }}>
-                <MaterialIcons 
+                <MaterialIcons
                   name={icons.Download}
                   size={22}
                   color={isOfflineAvailable ? colors.primary : colors.textSecondary}
@@ -143,7 +143,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
               </Animated.View>
             </Pressable>
 
-            <Pressable 
+            <Pressable
               onPress={onPinPress}
               onPressIn={() => handlePressIn(pinScale, 0.90)}
               onPressOut={() => handlePressOut(pinScale)}
@@ -152,7 +152,7 @@ export const ItineraryCard: React.FC<ItineraryCardProps> = ({
               accessibilityLabel={isPinned ? "Unpin itinerary" : "Pin itinerary"}
             >
               <Animated.View style={{ transform: [{ scale: pinScale }] }}>
-                <MaterialIcons 
+                <MaterialIcons
                   name={icons.Pin}
                   size={22}
                   color={isPinned ? colors.warning : colors.textSecondary}

@@ -14,7 +14,11 @@ export default function itinerarioInfoFav() {
             <Stack.Screen options={{ headerShown: false }} />
 
             <View style={styles.headerContainer}>
-                <Header title="Explorar" />
+                <Header
+                    title="Inicio"
+                    onThemeTogglePress={() => {}}
+                    onAvatarPress={() => {}}
+                />
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>

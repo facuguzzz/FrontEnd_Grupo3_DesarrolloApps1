@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Modal, Platform, Pressable, Text, TextInput, View } from 'react-native';
-import { colors } from '../../../../../constants/colors';
+import { colors } from '../../../../constants/colors';
 import { styles } from './EditModal.styles';
 
 export interface EditModalProps {

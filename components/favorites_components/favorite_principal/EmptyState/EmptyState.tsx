@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, Pressable } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React from 'react';
+import { Pressable, Text, View } from 'react-native';
+import { colors } from '../../../../constants/colors';
+import { icons } from '../../../../constants/icons';
 import { styles } from './EmptyState.styles';
-import { colors } from '../../../../../constants/colors';
-import { icons } from '../../../../../constants/icons';
 
 export interface EmptyStateProps {
   /** The main title for the empty state */
@@ -25,20 +25,20 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <MaterialIcons 
+        <MaterialIcons
           name={icons.Save}
           size={32}
           color={colors.primary}
         />
       </View>
-      
+
       <Text style={styles.title}>{title}</Text>
-      
+
       <Text style={styles.description}>
         {description}
       </Text>
-      
-      <Pressable 
+
+      <Pressable
         onPress={onActionPress}
         style={({ pressed }) => [
           styles.button,
@@ -47,7 +47,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         accessibilityRole="button"
         accessibilityLabel={actionLabel}
       >
-        <MaterialIcons 
+        <MaterialIcons
           name={icons.Explore}
           size={16}
           color={colors.black}
