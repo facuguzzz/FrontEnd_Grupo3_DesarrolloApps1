@@ -3,20 +3,30 @@ import { View, StyleSheet, Text, KeyboardAvoidingView, Platform } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Toast from 'react-native-toast-message';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { COLORS } from '../styles/colors';
 import { CustomInput } from '../../components/CustomInput';
 import { CustomButton } from '../../components/CustomButton';
 import { BottomSheet } from '../../components/BottomSheet';
 import { HeaderLogo } from '../../components/HeaderLogo';
+import { useAuth } from '../context/AuthContext';
+import { ApiError } from '../services/api';
+
+// Debe coincidir con la validación del backend (RegisterRequest.contrasenia).
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
 export const RegisterStep2Screen: React.FC = () => {
-  const router = useRouter();
-  const { name } = useLocalSearchParams<{ name: string }>();
+  const { name, lastName, email } = useLocalSearchParams<{
+    name: string;
+    lastName: string;
+    email: string;
+  }>();
+  const { register } = useAuth();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!password || !confirmPassword) {
       Toast.show({
         type: 'error',
@@ -35,24 +45,38 @@ export const RegisterStep2Screen: React.FC = () => {
       return;
     }
 
-    if (password.length < 6) {
+    if (!PASSWORD_REGEX.test(password)) {
       Toast.show({
         type: 'error',
         text1: 'Error',
-        text2: 'La contraseña debe tener al menos 6 caracteres',
+        text2: 'La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número',
       });
       return;
     }
 
-    Toast.show({
-      type: 'success',
-      text1: '¡Registro exitoso!',
-      text2: `Bienvenido, ${name || ''}`,
-    });
-
-    setTimeout(() => {
-      router.replace('/(tabs)');
-    }, 1000);
+    setSubmitting(true);
+    try {
+      await register({
+        nombre: name,
+        apellido: lastName,
+        email: email.trim(),
+        contrasenia: password,
+      });
+      Toast.show({
+        type: 'success',
+        text1: '¡Registro exitoso!',
+        text2: `Bienvenido, ${name || ''}`,
+      });
+      // La navegación a /(tabs) la maneja el guard del layout al cambiar el token.
+    } catch (error) {
+      const message =
+        error instanceof ApiError
+          ? error.message
+          : 'No se pudo conectar con el servidor';
+      Toast.show({ type: 'error', text1: 'Error', text2: message });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -91,7 +115,13 @@ export const RegisterStep2Screen: React.FC = () => {
               onChangeText={setConfirmPassword}
             />
             
-            <CustomButton title="Ingresar" showArrow onPress={handleRegister} style={styles.buttonSpacing} />
+            <CustomButton
+              title={submitting ? 'Creando cuenta...' : 'Ingresar'}
+              showArrow
+              onPress={handleRegister}
+              disabled={submitting}
+              style={styles.buttonSpacing}
+            />
           </BottomSheet>
         </KeyboardAvoidingView>
       </SafeAreaView>
