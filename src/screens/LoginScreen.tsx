@@ -9,13 +9,17 @@ import { CustomInput } from '../../components/CustomInput';
 import { CustomButton } from '../../components/CustomButton';
 import { BottomSheet } from '../../components/BottomSheet';
 import { HeaderLogo } from '../../components/HeaderLogo';
+import { useAuth } from '../context/AuthContext';
+import { ApiError } from '../services/api';
 
 export const LoginScreen: React.FC = () => {
   const router = useRouter();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       Toast.show({
         type: 'error',
@@ -24,17 +28,25 @@ export const LoginScreen: React.FC = () => {
       });
       return;
     }
-    // Mock login success
-    Toast.show({
-      type: 'success',
-      text1: 'Éxito',
-      text2: 'Inicio de sesión correcto',
-    });
 
-    // Redirect to main tabs group in Expo Router
-    setTimeout(() => {
-      router.replace('/(tabs)');
-    }, 1000);
+    setSubmitting(true);
+    try {
+      await login({ email: email.trim(), contrasenia: password });
+      Toast.show({
+        type: 'success',
+        text1: 'Éxito',
+        text2: 'Inicio de sesión correcto',
+      });
+      // La navegación a /(tabs) la maneja el guard del layout al cambiar el token.
+    } catch (error) {
+      const message =
+        error instanceof ApiError
+          ? error.message
+          : 'No se pudo conectar con el servidor';
+      Toast.show({ type: 'error', text1: 'Error', text2: message });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -74,7 +86,13 @@ export const LoginScreen: React.FC = () => {
               onChangeText={setPassword}
             />
 
-            <CustomButton title="Continuar" showArrow onPress={handleLogin} style={styles.buttonSpacing} />
+            <CustomButton
+              title={submitting ? 'Ingresando...' : 'Continuar'}
+              showArrow
+              onPress={handleLogin}
+              disabled={submitting}
+              style={styles.buttonSpacing}
+            />
 
             <View style={styles.registerContainer}>
               <Text style={styles.registerText}>¿No tenés cuenta? </Text>

@@ -15,9 +15,24 @@ const getHost = (): string => {
 
 const BASE_URL = `http://${getHost()}:8080`;
 
-// Reemplazar con el token real antes de probar contra el backend
-export const AUTH_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuLnBlcmV6QGV4YW1wbGUuY29tIiwiaWRVc3VhcmlvIjoxLCJub21icmUiOiJKdWFuIiwiaWF0IjoxNzc5MzAxMDc5LCJleHAiOjE3NzkzODc0Nzl9.qaF-pTg5JThjKUd1qGD4okOBDPCourpsJrcHBhtYkL4";
+// Token JWT en memoria. Lo setea el AuthContext tras login o al restaurar la
+// sesión guardada. Las llamadas que requieren auth lo envían en el header.
+let authToken: string | null = null;
+
+export function setAuthToken(token: string | null): void {
+  authToken = token;
+}
+
+// Error con el status HTTP y el mensaje que devuelve el backend (ErrorResponse.message).
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
 
 export async function apiFetch<T>(
   path: string,
@@ -27,13 +42,24 @@ export async function apiFetch<T>(
     ...options,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${AUTH_TOKEN}`,
+      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       ...(options?.headers ?? {}),
     },
   });
+
   if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`HTTP ${res.status}${body ? `: ${body}` : ""}`);
+    const text = await res.text().catch(() => "");
+    let message = text || `HTTP ${res.status}`;
+    try {
+      const body = JSON.parse(text);
+      message = body.message || body.error || message;
+    } catch {
+      // El cuerpo no es JSON; usamos el texto crudo.
+    }
+    throw new ApiError(res.status, message);
   }
-  return res.json() as Promise<T>;
+
+  // Algunos endpoints (ej: logout) responden 200 sin cuerpo.
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
 }

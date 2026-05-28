@@ -1,21 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
 import { COLORS } from '../styles/colors';
 import { HeaderLogo } from '../../components/HeaderLogo';
 
+// La navegación inicial (a /login o /(tabs)) la decide el guard del layout
+// según haya o no sesión guardada. Esta pantalla solo muestra el branding.
 export const SplashScreen: React.FC = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.replace('/login');
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
-
   return (
     <LinearGradient
       colors={[COLORS.gradientStart, COLORS.gradientEnd]}
