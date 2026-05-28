@@ -44,7 +44,7 @@ const RANGE_COLOR = 'rgba(255,255,255,0.35)';
 const SELECTED_COLOR = '#FFFFFF';
 const SELECTED_TEXT = PRIMARY;
 
-export function CalendarioViaje({ visible, onClose, onConfirm, initialStart, initialEnd }: Props) {
+export function CalendarioViaje({ visible, onClose, onConfirm, initialStart, initialEnd }: Readonly<Props>) {
   const [startDate, setStartDate] = useState<string | null>(initialStart ?? null);
   const [endDate, setEndDate] = useState<string | null>(initialEnd ?? null);
 
@@ -52,15 +52,13 @@ export function CalendarioViaje({ visible, onClose, onConfirm, initialStart, ini
     if (!startDate || (startDate && endDate)) {
       setStartDate(day.dateString);
       setEndDate(null);
+    } else if (day.dateString < startDate) {
+      setEndDate(startDate);
+      setStartDate(day.dateString);
+    } else if (day.dateString === startDate) {
+      setStartDate(null);
     } else {
-      if (day.dateString < startDate) {
-        setEndDate(startDate);
-        setStartDate(day.dateString);
-      } else if (day.dateString === startDate) {
-        setStartDate(null);
-      } else {
-        setEndDate(day.dateString);
-      }
+      setEndDate(day.dateString);
     }
   };
 
