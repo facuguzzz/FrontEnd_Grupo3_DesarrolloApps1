@@ -39,7 +39,7 @@ const CATEGORIAS: { value: CategoriaItinerario; icon: React.ReactNode }[] = [
 function formatFecha(iso: string) {
   const [y, m, d] = iso.split('-');
   const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-  return `${d} ${meses[parseInt(m) - 1]} ${y}`;
+  return `${d} ${meses[Number.parseInt(m) - 1]} ${y}`;
 }
 
 export default function PreferenciasScreen() {

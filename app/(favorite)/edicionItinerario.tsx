@@ -62,52 +62,94 @@ const INITIAL_ACTIVITIES = [
   },
 ];
 
+type ActivityParams = {
+  updatedActivityId?: string;
+  updatedTitle?: string;
+  updatedDescription?: string;
+  updatedTime?: string;
+  updatedLocation?: string;
+  updatedDay?: string;
+};
+
+type Activity = typeof INITIAL_ACTIVITIES[0];
+
+// Extracted to avoid nesting > 4 levels inside useEffect → setActivities
+function applyActivityUpdate(prev: Activity[], params: ActivityParams): Activity[] {
+  const exists = prev.some((act) => act.id === params.updatedActivityId);
+  if (exists) {
+    return prev.map((act) => {
+      if (act.id !== params.updatedActivityId) return act;
+      return {
+        ...act,
+        title: params.updatedTitle || act.title,
+        description: params.updatedDescription || act.description,
+        time: params.updatedTime || act.time,
+        location: params.updatedLocation || act.location,
+        day: params.updatedDay ? Number.parseInt(params.updatedDay, 10) : act.day,
+      };
+    });
+  }
+  return [
+    ...prev,
+    {
+      id: params.updatedActivityId!,
+      title: params.updatedTitle || 'Nueva Actividad',
+      description: params.updatedDescription || '',
+      time: params.updatedTime || '12:00',
+      location: params.updatedLocation || '',
+      day: params.updatedDay ? Number.parseInt(params.updatedDay, 10) : 1,
+    },
+  ];
+}
+
+// Extracted to keep doDelete's chain at ≤ 4 levels (component → fn → doDelete → setActivities cb)
+function withoutActivity(prev: Activity[], id: string): Activity[] {
+  return prev.filter((act) => act.id !== id);
+}
+
+type DaySectionProps = Readonly<{
+  dayNum: number;
+  activities: ReadonlyArray<Activity>;
+  onEdit: (activity: Activity) => void;
+  onDelete: (id: string, title: string) => void;
+  onAdd: (dayNum: number) => void;
+}>;
+
+// Extracted to avoid nesting > 4 levels inside the ScrollView render
+function DaySection({ dayNum, activities, onEdit, onDelete, onAdd }: DaySectionProps) {
+  const dayActivities = activities.filter((act) => act.day === dayNum);
+  return (
+    <View style={styles.daySection}>
+      <Text style={styles.dayTitle}>{`Día ${dayNum}`}</Text>
+      <View style={styles.activityList}>
+        {dayActivities.map((activity) => (
+          <ActivityCard
+            key={activity.id}
+            time={activity.time}
+            title={activity.title}
+            description={activity.description}
+            location={activity.location}
+            onEditPress={() => onEdit(activity)}
+            onDeletePress={() => onDelete(activity.id, activity.title)}
+          />
+        ))}
+        <CreateActivityCard onPress={() => onAdd(dayNum)} />
+      </View>
+    </View>
+  );
+}
+
 export default function EdicionItinerarioScreen() {
   const [title, setTitle] = useState('Explorando la Patagonia');
   const [activities, setActivities] = useState(INITIAL_ACTIVITIES);
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
-  const params = useLocalSearchParams<{
-    updatedActivityId?: string;
-    updatedTitle?: string;
-    updatedDescription?: string;
-    updatedTime?: string;
-    updatedLocation?: string;
-    updatedDay?: string;
-  }>();
+  const params = useLocalSearchParams<ActivityParams>();
 
   useEffect(() => {
     if (params.updatedActivityId) {
-      setActivities((prev) => {
-        const exists = prev.some((act) => act.id === params.updatedActivityId);
-        if (exists) {
-          return prev.map((act) =>
-            act.id === params.updatedActivityId
-              ? {
-                  ...act,
-                  title: params.updatedTitle || act.title,
-                  description: params.updatedDescription || act.description,
-                  time: params.updatedTime || act.time,
-                  location: params.updatedLocation || act.location,
-                  day: params.updatedDay ? parseInt(params.updatedDay, 10) : act.day,
-                }
-              : act
-          );
-        } else {
-          return [
-            ...prev,
-            {
-              id: params.updatedActivityId!,
-              title: params.updatedTitle || 'Nueva Actividad',
-              description: params.updatedDescription || '',
-              time: params.updatedTime || '12:00',
-              location: params.updatedLocation || '',
-              day: params.updatedDay ? parseInt(params.updatedDay, 10) : 1,
-            },
-          ];
-        }
-      });
+      setActivities((prev) => applyActivityUpdate(prev, params));
     }
   }, [
     params.updatedActivityId,
@@ -133,21 +175,14 @@ export default function EdicionItinerarioScreen() {
   };
 
   const handleDeleteActivity = (id: string, activityTitle: string) => {
+    // Named handler avoids a 5th nesting level inside Alert.alert → onPress
+    const doDelete = () => setActivities((prev) => withoutActivity(prev, id));
     Alert.alert(
       'Eliminar Actividad',
       `¿Estás seguro de que deseas eliminar la actividad "${activityTitle}"?`,
       [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Eliminar',
-          style: 'destructive',
-          onPress: () => {
-            setActivities((prev) => prev.filter((act) => act.id !== id));
-          },
-        },
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Eliminar', style: 'destructive', onPress: doDelete },
       ]
     );
   };
@@ -200,29 +235,16 @@ export default function EdicionItinerarioScreen() {
           <InputTitulo value={title} onChangeText={setTitle} />
         </View>
 
-        {days.map((dayNum) => {
-          const dayActivities = activities.filter((act) => act.day === dayNum);
-
-          return (
-            <View key={`day-${dayNum}`} style={styles.daySection}>
-              <Text style={styles.dayTitle}>{`Día ${dayNum}`}</Text>
-              <View style={styles.activityList}>
-                {dayActivities.map((activity) => (
-                  <ActivityCard
-                    key={activity.id}
-                    time={activity.time}
-                    title={activity.title}
-                    description={activity.description}
-                    location={activity.location}
-                    onEditPress={() => handleEditActivity(activity)}
-                    onDeletePress={() => handleDeleteActivity(activity.id, activity.title)}
-                  />
-                ))}
-                <CreateActivityCard onPress={() => handleAddActivity(dayNum)} />
-              </View>
-            </View>
-          );
-        })}
+        {days.map((dayNum) => (
+          <DaySection
+            key={`day-${dayNum}`}
+            dayNum={dayNum}
+            activities={activities}
+            onEdit={handleEditActivity}
+            onDelete={handleDeleteActivity}
+            onAdd={handleAddActivity}
+          />
+        ))}
 
         {activities.length === 0 && (
           <View style={{ padding: 20, alignItems: 'center', width: '100%' }}>

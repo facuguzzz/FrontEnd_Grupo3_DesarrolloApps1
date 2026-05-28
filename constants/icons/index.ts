@@ -1,5 +1,3 @@
-import { SymbolViewProps } from 'expo-symbols';
-
 /**
  * Nombres de los íconos de la aplicación.
  * Estos nombres corresponden a Material Symbols (snake_case)

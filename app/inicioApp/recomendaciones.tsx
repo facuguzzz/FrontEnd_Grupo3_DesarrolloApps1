@@ -20,12 +20,12 @@ import {
 
 function formatFechaCorta(iso: string) {
   if (!iso) return '';
-  const [y, m, d] = iso.split('-');
+  const [m, d] = iso.split('-');
   const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-  return `${parseInt(d)} ${meses[parseInt(m) - 1]}`;
+  return `${Number.parseInt(d)} ${meses[Number.parseInt(m) - 1]}`;
 }
 
-function CardResultado({ item }: { item: ItinerarioSistemaResumenDTO }) {
+function CardResultado({ item }: Readonly<{ item: ItinerarioSistemaResumenDTO }>) {
   const router = useRouter();
   return (
     <TouchableOpacity
@@ -46,7 +46,7 @@ function CardResultado({ item }: { item: ItinerarioSistemaResumenDTO }) {
             {PROVINCIA_LABEL[item.provincia] ?? item.provincia}
           </Text>
         </View>
-        {item.fechaInicio && item.fechaFin && (
+        {Boolean(item.fechaInicio && item.fechaFin) && (
           <View style={styles.fechaBadge}>
             <Ionicons name="calendar-outline" size={12} color="#FFFFFF" />
             <Text style={styles.fechaBadgeText}>
@@ -119,7 +119,7 @@ export default function RecomendacionesScreen() {
           <Text style={styles.headerLabel}>RESULTADOS PARA</Text>
           <Text style={styles.headerTitulo}>{provinciaLabel ?? 'Argentina'}</Text>
           <View style={styles.chipsRow}>
-            {params.fechaInicio && params.fechaFin && (
+            {Boolean(params.fechaInicio && params.fechaFin) && (
               <View style={styles.chip}>
                 <Ionicons name="calendar-outline" size={12} color="#FFFFFF" />
                 <Text style={styles.chipText}>

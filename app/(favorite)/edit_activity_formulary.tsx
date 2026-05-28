@@ -1,6 +1,6 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { Alert, ScrollView, StatusBar, Text, View } from 'react-native';
+import { Alert, ScrollView, StatusBar, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '../../components/common/Header/Header';
 import { EditActivityFormulary } from '../../components/favorites_components/edit_actvity_formulary/EditActivityFormulary';
