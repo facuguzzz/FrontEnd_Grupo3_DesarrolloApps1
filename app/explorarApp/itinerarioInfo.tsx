@@ -1,13 +1,12 @@
-import { colors } from '@/constants/colors';
-import { fonts } from '@/constants/fonts';
 import { paddings } from '@/constants/paddings';
 import { Stack, useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Header } from '../../components/common/Header/Header';
 import { ItineraryInfoCard } from '../../components/Explorar/Card-Itinerario-Info';
 import { ActivityCard } from '../../components/common/ActivityCard/ActivityCard';
+import { styles } from './itinerarioInfo.styles';
 
 export default function ItineraryInfoScreen() {
   const router = useRouter();
@@ -80,31 +79,3 @@ export default function ItineraryInfoScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.surfaceNeutral,
-  },
-  scrollContent: {
-    paddingHorizontal: paddings.spacing.xl,
-    paddingBottom: paddings.spacing.huge,
-  },
-  dayCard: {
-    backgroundColor: colors.surface,
-    borderRadius: paddings.radius.xxl,
-    padding: paddings.spacing.xxl,
-    marginBottom: paddings.spacing.xl,
-    shadowColor: colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  dayTitle: {
-    fontSize: fonts.size.xl,
-    fontFamily: fonts.family.headingBold,
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: paddings.spacing.xxl,
-  },
-});

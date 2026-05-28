@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ExploreItineraryCard } from '@/components/Explorar/Card-Itinerario-Explorar';
 import { CategoriesCarousel } from '@/components/Explorar/Filtro-Categorias-Carrusel';
 import { FiltrosDeBusqueda } from '@/components/Filtros-de-busqueda';
 import { Header } from '@/components/common/Header/Header';
-import { colors } from '@/constants/colors';
-import { paddings } from '@/constants/paddings';
 import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
+import { styles } from './explorar.styles';
 
 export default function ExploreScreen() {
   const insets = useSafeAreaInsets();
@@ -31,16 +30,3 @@ export default function ExploreScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.surfaceNeutral,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.surfaceNeutral,
-    paddingTop: 0,
-    paddingHorizontal: paddings.spacing.xl,
-  },
-});
