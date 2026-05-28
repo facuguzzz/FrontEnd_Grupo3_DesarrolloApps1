@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Provincia, PROVINCIA_LABEL } from '../../src/types/itinerario';
 
@@ -21,13 +21,19 @@ interface Props {
 
 const TODAS = Object.values(Provincia) as Provincia[];
 
-export function ProvinciaSelector({ visible, onClose, onSelect, selected }: Props) {
+// Defined at module scope so FlatList always receives a stable component reference
+function ListSeparator() {
+  return <View style={styles.separator} />;
+}
+
+
+export function ProvinciaSelector({ visible, onClose, onSelect, selected }: Readonly<Props>) {
   const [search, setSearch] = useState('');
 
   const filtered = search.trim()
     ? TODAS.filter((p) =>
-        PROVINCIA_LABEL[p].toLowerCase().includes(search.toLowerCase()),
-      )
+      PROVINCIA_LABEL[p].toLowerCase().includes(search.toLowerCase()),
+    )
     : TODAS;
 
   const handleClose = () => {
@@ -88,7 +94,7 @@ export function ProvinciaSelector({ visible, onClose, onSelect, selected }: Prop
                 </TouchableOpacity>
               );
             }}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            ItemSeparatorComponent={ListSeparator}
           />
         </SafeAreaView>
       </View>

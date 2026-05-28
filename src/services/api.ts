@@ -1,3 +1,4 @@
+
 import { Platform } from "react-native";
 import Constants from "expo-constants";
 
@@ -33,7 +34,8 @@ export async function apiFetch<T>(
   });
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(`HTTP ${res.status}${body ? `: ${body}` : ""}`);
+    const detail = body ? `: ${body}` : "";
+    throw new Error(`HTTP ${res.status}${detail}`);
   }
   return res.json() as Promise<T>;
 }
