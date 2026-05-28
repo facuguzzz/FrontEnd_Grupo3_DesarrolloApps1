@@ -21,7 +21,7 @@ export function FiltrosDeBusqueda() {
         onPress={() => setShowProvincia(true)}
         activeOpacity={0.7}
       >
-        <MaterialIcons name={icons.AddLocationAlt} size={fonts.size.lg} color={colors.textSecondary} />
+        <MaterialIcons name={icons.AddItinerary} size={fonts.size.lg} color={colors.textSecondary} />
         <Text style={[styles.inputText, !provincia && styles.inputPlaceholder]}>
           {provincia ? PROVINCIA_LABEL[provincia] : 'Ej: Río Negro, Salta, Buenos Aires...'}
         </Text>

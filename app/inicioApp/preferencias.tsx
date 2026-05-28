@@ -1,5 +1,5 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
@@ -12,19 +12,20 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AventuraIcon from '../../assets/images/Icono-Aventura.svg';
-import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
+import CultureIcon from '../../assets/images/Icono-Cultura.svg'; // CultureIcon fallback
 import GastronomiaIcon from '../../assets/images/Icono-Gastronomia.svg';
 import NaturalezaIcon from '../../assets/images/Icono-Naturaleza.svg';
 import { CalendarioViaje } from '../../components/Preferencias/CalendarioViaje';
 import { ProvinciaSelector } from '../../components/Preferencias/ProvinciaSelector';
 import { buscarPorPreferencias } from '../../src/services/itinerarioService';
 import { CATEGORIA_LABEL, CategoriaItinerario, Provincia, PROVINCIA_LABEL } from '../../src/types/itinerario';
+import { Header } from '../../components/common/Header/Header';
 
 const CATEGORIAS: { value: CategoriaItinerario; icon: React.ReactNode }[] = [
   { value: CategoriaItinerario.NATURALEZA, icon: <NaturalezaIcon width={28} height={28} /> },
   { value: CategoriaItinerario.GASTRONOMIA, icon: <GastronomiaIcon width={28} height={28} /> },
   { value: CategoriaItinerario.AVENTURA, icon: <AventuraIcon width={28} height={28} /> },
-  { value: CategoriaItinerario.CULTURA, icon: <CulturaIcon width={28} height={28} /> },
+  { value: CategoriaItinerario.CULTURA, icon: <CultureIcon width={28} height={28} /> },
   {
     value: CategoriaItinerario.NOCHE,
     icon: <Ionicons name="moon-outline" size={28} color="#2F65E3" />,
@@ -71,7 +72,7 @@ export default function PreferenciasScreen() {
         fechaFin,
       });
       router.push({
-        pathname: '/recomendaciones',
+        pathname: '/inicioApp/recomendaciones',
         params: {
           resultados: JSON.stringify(resultados),
           provincia: provincia ?? '',
@@ -90,21 +91,20 @@ export default function PreferenciasScreen() {
 
   return (
     <View style={[styles.screen, { paddingTop: insets.top }]}>
+      <Stack.Screen options={{ headerShown: false }} />
+      <Header
+        title="Buscar"
+        showBackButton={true}
+        onBackPress={() => router.back()}
+        onThemeTogglePress={() => Alert.alert('Tema', 'Cambio de tema no implementado.')}
+        onAvatarPress={() => Alert.alert('Perfil', 'Navegación al perfil de usuario.')}
+      />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Encabezado */}
-        <View style={styles.encabezado}>
-          <Text style={styles.titulo}>Buscar por{'\n'}preferencias</Text>
-          <Text style={styles.subtitulo}>Diseña tu próximo viaje ideal.</Text>
-          <TouchableOpacity style={styles.btnVolver} onPress={() => router.back()} activeOpacity={0.8}>
-            <Ionicons name="arrow-back" size={16} color="#FFFFFF" />
-            <Text style={styles.btnVolverText}>Volver</Text>
-          </TouchableOpacity>
-        </View>
-
         {/* Destino */}
         <View style={styles.seccion}>
           <Text style={styles.pregunta}>¿A dónde quieres ir?</Text>

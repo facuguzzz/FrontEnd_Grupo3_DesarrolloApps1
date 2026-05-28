@@ -21,7 +21,7 @@ export function ActivityCard({ time, title, subtitle, location, isLast = false }
       <Text style={styles.activityTitle}>{title}</Text>
       <Text style={styles.activitySubtitle}>{subtitle}</Text>
       <View style={styles.locationRow}>
-        <MaterialIcons name={icons.AddLocationAlt} size={fonts.size.sm} color={colors.textSecondary} />
+        <MaterialIcons name={icons.AddItinerary} size={fonts.size.sm} color={colors.textSecondary} />
         <Text style={styles.locationText}>{location}</Text>
       </View>
     </View>

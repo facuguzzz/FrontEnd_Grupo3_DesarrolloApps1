@@ -1,12 +1,8 @@
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
 export const icons = {
   // Generales
-  ArrowForward: 'arrow-forward',
-  ArrowBack: 'arrow-back',
-  AddLocationAlt: 'add-location-alt',
-  CalendarToday: 'calendar-today',
-  CalendarMonth: 'calendar-month',
+  AddItinerary: 'add-location-alt',
+  EmptyCalendar: 'calendar-today',
+  FullCalendar: 'calendar-month',
   RocketLaunch: 'rocket-launch',
   FavoriteOutline: 'favorite-border', // favorite (borde)
   FavoriteFilled: 'favorite', // favorite (filled)
@@ -14,10 +10,24 @@ export const icons = {
   Keep: 'bookmark', // Equivalente común para guardar/keep
   Schedule: 'schedule',
   PhotoCamera: 'photo-camera',
-  Lock: 'lock',
   Logout: 'logout',
+  Location: 'place',
+  CloudOffline: 'cloud-off',
+  Download: 'file-download',
+  Pin: 'push-pin',
+  Compass: 'explore',
+  Edit: 'edit',
+  CalendarToday: 'calendar-today',
+  ArrowBack: 'arrow-back',
+  Save: 'bookmark-border',
+
+  //Contraseña
+  Lock: 'lock',
   Visibility: 'visibility',
   VisibilityOff: 'visibility-off',
+  Delete: 'delete',
+  'chevron.right': 'keyboard-arrow-right',
+  'chevron.left.forwardslash.chevron.right': 'code',
 
   // Activities Icons
   Landscape: 'landscape',
@@ -35,8 +45,5 @@ export const icons = {
   Home: 'home',
   Explore: 'explore',
   Person: 'person',
+  Favorite: 'favorite',
 } as const;
-
-// Tipos para asegurar autocompletado en tus componentes
-export type AppIconKey = keyof typeof icons;
-export type MaterialIconName = keyof typeof MaterialIcons.glyphMap;

@@ -17,4 +17,5 @@ export const colors = {
   brownlight: '#98755C',
   lightgreen: '#57A773',
   orange: '#ffa600',
+  button_gray: '#646770',
 };
