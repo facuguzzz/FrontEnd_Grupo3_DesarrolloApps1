@@ -1,6 +1,10 @@
+import { colors } from '@/constants/colors';
+import { fonts } from '@/constants/fonts';
+import { icons } from '@/constants/icons';
+import { paddings } from '@/constants/paddings';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
   time: string;
@@ -10,51 +14,53 @@ type Props = {
   isLast?: boolean;
 };
 
-export function CardActividad({ time, title, subtitle, location, isLast = false }: Props) {
+export function ActivityCard({ time, title, subtitle, location, isLast = false }: Props) {
   return (
-    <View style={[styles.eventItem, isLast && styles.eventItemLast]}>
-      <Text style={styles.eventTime}>{time}</Text>
-      <Text style={styles.eventTitle}>{title}</Text>
-      <Text style={styles.eventSubtitle}>{subtitle}</Text>
-      <View style={styles.eventLocationRow}>
-        <Ionicons name="location-outline" size={14} color="#6B7280" />
-        <Text style={styles.eventLocationText}>{location}</Text>
+    <View style={[styles.activityItem, isLast && styles.activityItemLast]}>
+      <Text style={styles.activityTime}>{time}</Text>
+      <Text style={styles.activityTitle}>{title}</Text>
+      <Text style={styles.activitySubtitle}>{subtitle}</Text>
+      <View style={styles.locationRow}>
+        <MaterialIcons name={icons.AddLocationAlt} size={fonts.size.sm} color={colors.textSecondary} />
+        <Text style={styles.locationText}>{location}</Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  eventItem: {
-    marginBottom: 24,
+  activityItem: {
+    marginBottom: paddings.spacing.xxl,
   },
-  eventItemLast: {
+  activityItemLast: {
     marginBottom: 0,
   },
-  eventTime: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#2563EB',
-    marginBottom: 4,
+  activityTime: {
+    fontSize: fonts.size.sm,
+    fontFamily: fonts.family.headingBold,
+    color: colors.primary,
+    marginBottom: paddings.spacing.xs,
   },
-  eventTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#111827',
+  activityTitle: {
+    fontSize: fonts.size.md,
+    fontFamily: fonts.family.headingBold,
+    color: colors.text,
     marginBottom: 2,
   },
-  eventSubtitle: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginBottom: 4,
+  activitySubtitle: {
+    fontSize: fonts.size.sm,
+    fontFamily: fonts.family.bodyRegular,
+    color: colors.textSecondary,
+    marginBottom: paddings.spacing.xs,
   },
-  eventLocationRow: {
+  locationRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: paddings.spacing.xs,
   },
-  eventLocationText: {
-    fontSize: 13,
-    color: '#6B7280',
+  locationText: {
+    fontSize: fonts.size.sm - 1,
+    fontFamily: fonts.family.bodyRegular,
+    color: colors.textSecondary,
   },
 });

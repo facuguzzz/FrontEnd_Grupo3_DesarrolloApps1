@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useState, type ReactNode } from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
-import CorazonIcon from '../../assets/images/Icono-Corazon.svg';
-import CorazonLlenoIcon from '../../assets/images/Icono-Corazon-Rellenado.svg';
+import { colors } from '@/constants/colors';
+import { fonts } from '@/constants/fonts';
+import { icons } from '@/constants/icons';
+import { paddings } from '@/constants/paddings';
+import { Colors } from '@/constants/theme';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRouter } from 'expo-router';
+import { useState, type ReactNode } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type Props = {
   title: string;
@@ -15,7 +17,7 @@ type Props = {
   duration?: string;
 };
 
-export function CardItinerarioExplorar({
+export function ExploreItineraryCard({
   title,
   description,
   category,
@@ -33,49 +35,49 @@ export function CardItinerarioExplorar({
       onPress={() => router.push('/explorarApp/itinerarioInfo')}
     >
 
-      {/* Imagen */}
-      <View style={styles.contenedorImagen}>
+      {/* Image */}
+      <View style={styles.imageContainer}>
         {image}
 
-        {/* Icono de corazon */}
-        <TouchableOpacity style={styles.botonCorazon} onPress={() => setIsFavorite(!isFavorite)}>
-          {isFavorite ?
-            <CorazonLlenoIcon width={20} height={20} />
-            :
-            <CorazonIcon width={20} height={20} />
-          }
+        {/* Heart Icon */}
+        <TouchableOpacity style={styles.heartButton} onPress={() => setIsFavorite(!isFavorite)}>
+          <MaterialIcons
+            name={isFavorite ? icons.FavoriteFilled : icons.FavoriteOutline}
+            size={fonts.size.xl}
+            color={isFavorite ? colors.danger : colors.textSecondary}
+          />
         </TouchableOpacity>
 
-        {/* Categoria */}
-        <View style={styles.etiquetaCategoria}>
-          <CulturaIcon width={18} height={18} />
-          <Text style={styles.textoCategoria}>{category}</Text>
+        {/* Category */}
+        <View style={styles.categoryBadge}>
+          <MaterialIcons name={icons.Museum} size={fonts.size.lg} color={colors.primary} />
+          <Text style={styles.categoryText}>{category}</Text>
         </View>
       </View>
 
-      {/* Contenido */}
-      <View style={styles.contenido}>
+      {/* Content */}
+      <View style={styles.content}>
 
         <View style={styles.headerRow}>
-          {/* Título */}
-          <Text style={styles.titulo}>{title}</Text>
+          {/* Title */}
+          <Text style={styles.title}>{title}</Text>
 
           {/* Rating */}
           <View style={styles.ratingBadge}>
-            <Ionicons name="star" size={14} color="#FACC15" />
+            <MaterialIcons name={icons.Star} size={fonts.size.sm} color={colors.warning} />
             <Text style={styles.ratingText}>{rating}</Text>
           </View>
         </View>
 
-        {/* Descripción */}
-        <Text style={styles.descripcion} numberOfLines={2}>
+        {/* Description */}
+        <Text style={styles.description} numberOfLines={2}>
           {description}
         </Text>
 
-        {/* Duración */}
+        {/* Duration */}
         {duration && (
           <View style={styles.durationRow}>
-            <Ionicons name="time-outline" size={16} color="#6B7280" />
+            <MaterialIcons name={icons.Schedule} size={fonts.size.md} color={colors.textSecondary} />
             <Text style={styles.durationText}>{duration}</Text>
           </View>
         )}
@@ -87,95 +89,97 @@ export function CardItinerarioExplorar({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    marginBottom: 20,
+    backgroundColor: colors.surface,
+    borderRadius: paddings.radius.md,
+    marginBottom: paddings.spacing.xl,
     overflow: "hidden",
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: colors.borderDark,
   },
-  contenedorImagen: {
+  imageContainer: {
     width: "100%",
     height: 180,
     position: "relative",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderTopLeftRadius: paddings.radius.md,
+    borderTopRightRadius: paddings.radius.md,
     overflow: "hidden",
   },
-  botonCorazon: {
+  heartButton: {
     position: 'absolute',
-    top: 12,
-    right: 12,
-    backgroundColor: '#FFFFFF',
+    top: paddings.spacing.md,
+    right: paddings.spacing.md,
+    backgroundColor: colors.surface,
     width: 35,
     height: 35,
-    borderRadius: 30,
+    borderRadius: paddings.radius.round,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
   },
-  etiquetaCategoria: {
+  categoryBadge: {
     position: 'absolute',
-    bottom: 12,
-    left: 12,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    paddingHorizontal: 12,
+    bottom: paddings.spacing.md,
+    left: paddings.spacing.md,
+    backgroundColor: colors.surface,
+    borderRadius: paddings.radius.lg,
+    paddingHorizontal: paddings.spacing.md,
     paddingVertical: 6,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
   },
-  textoCategoria: {
-    color: '#111827',
-    fontSize: 13,
-    fontWeight: '600',
+  categoryText: {
+    color: Colors.light.text,
+    fontSize: fonts.size.sm - 1, 
+    fontFamily: fonts.family.bodySemiBold,
   },
-  contenido: {
-    padding: 16,
-    gap: 8,
+  content: {
+    padding: paddings.spacing.lg,
+    gap: paddings.spacing.sm,
   },
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  titulo: {
-    color: "#111827",
-    fontSize: 18,
-    fontWeight: "700",
+  title: {
+    color: Colors.light.text,
+    fontSize: fonts.size.lg,
+    fontFamily: fonts.family.headingBold,
   },
   ratingBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FEF9C3',
-    paddingHorizontal: 8,
+    paddingHorizontal: paddings.spacing.sm,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: paddings.radius.sm + 4,
     gap: 4,
   },
   ratingText: {
-    color: '#111827',
-    fontSize: 13,
-    fontWeight: '600',
+    color: Colors.light.text,
+    fontSize: fonts.size.sm - 1,
+    fontFamily: fonts.family.bodySemiBold,
   },
-  descripcion: {
-    color: "#4B5563",
-    fontSize: 14,
+  description: {
+    color: colors.textSecondary,
+    fontSize: fonts.size.sm,
     lineHeight: 20,
+    fontFamily: fonts.family.bodyRegular,
   },
   durationRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
-    marginTop: 4,
+    gap: paddings.spacing.xs,
+    marginTop: paddings.spacing.xs,
   },
   durationText: {
-    color: "#6B7280",
-    fontSize: 14,
+    color: colors.textSecondary,
+    fontSize: fonts.size.sm,
+    fontFamily: fonts.family.bodyRegular,
   },
 });

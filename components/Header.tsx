@@ -1,7 +1,12 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors } from '@/constants/colors';
+import { fonts } from '@/constants/fonts';
+import { icons } from '@/constants/icons';
+import { paddings } from '@/constants/paddings';
+import { Colors } from '@/constants/theme';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import LunaIcon from '../assets/images/Icono-Luna.svg';
-import PerfilIcon from '../assets/images/Imagen-Perfil-Temporal.svg';
+import ProfileIcon from '../assets/images/Imagen-Perfil-Temporal.svg';
 
 type HeaderProps = {
   title?: string;
@@ -11,72 +16,71 @@ export function Header({ title = "Explorar" }: HeaderProps) {
   const insets = useSafeAreaInsets();
 
   return (
-    //Contenedor del principal
+    // Main container
     <View style={[styles.header, { paddingTop: insets.top, height: 64 + insets.top }]}>
 
-      {/* Titulo */}
-      <Text style={styles.titulo}>{title}</Text>
+      {/* Title */}
+      <Text style={styles.title}>{title}</Text>
 
-      <View style={styles.iconosContainer}>
-        {/* Icono de la luna */}
-        <TouchableOpacity style={styles.iconoLuna}>
-          <LunaIcon width={40} height={40} />
+      <View style={styles.iconsContainer}>
+        {/* Dark mode toggle icon */}
+        <TouchableOpacity style={styles.iconButton}>
+          <MaterialIcons name={icons.DarkMode} size={fonts.size.xl + 2} color={Colors.light.icon} />
         </TouchableOpacity>
 
-        {/* Imagen del perfil */}
-        <TouchableOpacity style={styles.perfilImg}>
-          <PerfilIcon width={40} height={40} />
+        {/* Profile image */}
+        <TouchableOpacity style={styles.profileImage}>
+          <ProfileIcon width={40} height={40} />
         </TouchableOpacity>
       </View>
 
     </View>
   );
-
 }
+
 const styles = StyleSheet.create({
   header: {
     height: 64,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: colors.surfaceNeutralAlt,
     borderBottomWidth: 1,
-    borderBottomColor: '#F3F4F6',
+    borderBottomColor: colors.border,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: -20,
-    paddingHorizontal: 20,
-    shadowColor: "#000000",
+    marginHorizontal: -paddings.spacing.xl,
+    paddingHorizontal: paddings.spacing.xl,
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
   },
-  iconosContainer: {
+  iconsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: paddings.spacing.md,
   },
-
-  titulo: {
-    fontFamily: "Inter-Bold",
-    fontSize: 26,
+  title: {
+    fontFamily: fonts.family.headingBold,
+    fontSize: fonts.size.xxl + 2,
     lineHeight: 32,
     letterSpacing: -0.5,
-    color: '#2563EB',
+    color: colors.primary,
   },
-  iconoLuna: {
+  iconButton: {
     width: 44,
     height: 44,
-    borderRadius: 22,
-    backgroundColor: '#FFFFFF',
+    borderRadius: paddings.radius.round,
+    backgroundColor: colors.surface,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: colors.borderDark,
   },
-  perfilImg: {
+  profileImage: {
     width: 44,
     height: 44,
-    borderRadius: 22,
+    borderRadius: paddings.radius.round,
     overflow: 'hidden',
   },
 });

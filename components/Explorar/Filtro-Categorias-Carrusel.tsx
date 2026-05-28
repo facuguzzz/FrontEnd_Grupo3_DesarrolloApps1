@@ -1,26 +1,28 @@
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import NaturalezaIcon from '../../assets/images/Icono-Naturaleza.svg';
-import GastronomiaIcon from '../../assets/images/Icono-Gastronomia.svg';
-import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
-import AventuraIcon from '../../assets/images/Icono-Aventura.svg';
+import { colors } from '@/constants/colors';
+import { fonts } from '@/constants/fonts';
+import { icons } from '@/constants/icons';
+import { paddings } from '@/constants/paddings';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const categories = [
-  { id: 1, name: "Naturaleza", image: <NaturalezaIcon width={24} height={24} /> },
-  { id: 2, name: "Gastronomía", image: <GastronomiaIcon width={24} height={24} /> },
-  { id: 3, name: "Cultura", image: <CulturaIcon width={24} height={24} /> },
-  { id: 4, name: "Aventura", image: <AventuraIcon width={24} height={24} /> },
+const CATEGORIES = [
+  { id: 1, name: "Naturaleza", image: <MaterialIcons name={icons.Landscape} size={fonts.size.xxl} color={colors.lightgreen} /> },
+  { id: 2, name: "Gastronomia", image: <MaterialIcons name={icons.Restaurant} size={fonts.size.xxl} color={colors.warning} /> },
+  { id: 3, name: "Cultura", image: <MaterialIcons name={icons.Museum} size={fonts.size.xxl} color={colors.primary} /> },
+  { id: 4, name: "Aventura", image: <MaterialIcons name={icons.Hiking} size={fonts.size.xxl} color={colors.brownlight} /> },
 ];
 
-export function CategoriasCarrusel() {
+export function CategoriesCarousel() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Categorías</Text>
+      <Text style={styles.title}>Categorias</Text>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {categories.map((cat) => (
-          <TouchableOpacity key={cat.id} style={styles.card}>
-            <View style={styles.image}>{cat.image}</View>
-            <Text style={styles.label}>{cat.name}</Text>
+        {CATEGORIES.map((category) => (
+          <TouchableOpacity key={category.id} style={styles.card}>
+            <View style={styles.iconWrapper}>{category.image}</View>
+            <Text style={styles.categoryLabel}>{category.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -30,34 +32,34 @@ export function CategoriasCarrusel() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: paddings.spacing.sm + 2,
+    marginBottom: paddings.spacing.xl,
   },
   title: {
-    color: "#1E1E1E",
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 12,
+    color: colors.text,
+    fontSize: fonts.size.xl + 2,
+    fontFamily: fonts.family.headingBold,
+    marginBottom: paddings.spacing.md,
   },
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
-    borderRadius: 12,
-    marginRight: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    gap: 8,
+    borderColor: colors.borderDark,
+    borderRadius: paddings.radius.sm + 4,
+    marginRight: paddings.spacing.md,
+    paddingHorizontal: paddings.spacing.lg,
+    paddingVertical: paddings.spacing.sm + 2,
+    gap: paddings.spacing.sm,
   },
-  image: {
+  iconWrapper: {
     justifyContent: "center",
     alignItems: "center",
   },
-  label: {
-    color: "#374151",
-    fontSize: 14,
-    fontWeight: "600",
+  categoryLabel: {
+    color: colors.text,
+    fontSize: fonts.size.sm,
+    fontFamily: fonts.family.bodySemiBold,
   },
 });

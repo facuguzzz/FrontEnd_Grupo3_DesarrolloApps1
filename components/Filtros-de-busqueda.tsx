@@ -1,22 +1,43 @@
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { colors } from '@/constants/colors';
+import { fonts } from '@/constants/fonts';
+import { icons } from '@/constants/icons';
+import { paddings } from '@/constants/paddings';
+import { Provincia, PROVINCIA_LABEL } from '@/src/types/itinerario';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { ProvinciaSelector } from '@/components/Preferencias/ProvinciaSelector';
 
 export function FiltrosDeBusqueda() {
+  const [provincia, setProvincia] = useState<Provincia | undefined>();
+  const [showProvincia, setShowProvincia] = useState(false);
   return (
-    /*Contenedor Principal*/
-    < View style={styles.container} >
-      <Ionicons name="search" size={27} color="#9CA3AF" />
-      <TextInput
-        placeholder="¿A dónde quieres ir?"
-        placeholderTextColor="#9CA3AF"
-        style={styles.input}
-      />
-      {/*Contenedor de separador con la imagen de filtro*/}
-      <View style={styles.separator} />
-      <TouchableOpacity>
-        <Ionicons name="options-outline" size={20} color="#6B7280" />
+
+    <View style={styles.seccion}>
+      <Text style={styles.pregunta}>¿A dónde quieres ir?</Text>
+      <TouchableOpacity
+        style={styles.inputRow}
+        onPress={() => setShowProvincia(true)}
+        activeOpacity={0.7}
+      >
+        <MaterialIcons name={icons.AddLocationAlt} size={fonts.size.lg} color={colors.textSecondary} />
+        <Text style={[styles.inputText, !provincia && styles.inputPlaceholder]}>
+          {provincia ? PROVINCIA_LABEL[provincia] : 'Ej: Río Negro, Salta, Buenos Aires...'}
+        </Text>
+        {provincia && (
+          <TouchableOpacity onPress={() => setProvincia(undefined)}>
+            <MaterialIcons name="cancel" size={fonts.size.lg} color={colors.textSecondary} />
+          </TouchableOpacity>
+        )}
       </TouchableOpacity>
-    </View >
+      <ProvinciaSelector
+        visible={showProvincia}
+        onClose={() => setShowProvincia(false)}
+        onSelect={setProvincia}
+        selected={provincia}
+      />
+    </View>
   );
 }
 
@@ -24,25 +45,42 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 24,
+    backgroundColor: colors.surface,
+    paddingHorizontal: paddings.spacing.lg,
+    paddingVertical: paddings.spacing.sm,
+    borderRadius: paddings.radius.xxl,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
-    marginBottom: 20,
-    marginTop: 16,
+    borderColor: colors.borderDark,
+    marginBottom: paddings.spacing.xl,
+    marginTop: paddings.spacing.lg,
   },
-  input: {
+  seccion: {
+    marginTop: paddings.spacing.xxxl - 4,
+  },
+  pregunta: {
+    fontSize: fonts.size.lg,
+    fontFamily: fonts.family.headingBold,
+    color: colors.text,
+    marginBottom: paddings.spacing.md,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paddings.spacing.sm + 2,
+    backgroundColor: colors.surface,
+    borderRadius: paddings.radius.sm + 4,
+    borderWidth: 1,
+    borderColor: colors.borderDark,
+    paddingHorizontal: paddings.spacing.md + 2,
+    paddingVertical: paddings.spacing.md + 2,
+  },
+  inputText: {
     flex: 1,
-    color: "#111827",
-    marginLeft: 10,
-    fontSize: 16,
+    fontSize: fonts.size.sm + 1,
+    fontFamily: fonts.family.bodyRegular,
+    color: colors.text,
   },
-  separator: {
-    width: 1,
-    height: 24,
-    backgroundColor: "#E5E7EB",
-    marginHorizontal: 12,
+  inputPlaceholder: {
+    color: colors.textSecondary,
   },
 });

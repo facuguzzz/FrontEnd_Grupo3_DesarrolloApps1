@@ -10,6 +10,7 @@ export const icons = {
   RocketLaunch: 'rocket-launch',
   FavoriteOutline: 'favorite-border', // favorite (borde)
   FavoriteFilled: 'favorite', // favorite (filled)
+  Star: 'star',
   Keep: 'bookmark', // Equivalente común para guardar/keep
   Schedule: 'schedule',
   PhotoCamera: 'photo-camera',

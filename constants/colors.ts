@@ -14,4 +14,7 @@ export const colors = {
   danger: '#FF3B30',
   transparent: 'transparent',
   black: '#000000',
+  brownlight: '#98755C',
+  lightgreen: '#57A773',
+  orange: '#ffa600',
 };

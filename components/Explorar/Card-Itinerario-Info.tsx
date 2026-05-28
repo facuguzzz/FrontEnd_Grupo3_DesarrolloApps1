@@ -1,10 +1,12 @@
+import { colors } from '@/constants/colors';
+import { fonts } from '@/constants/fonts';
+import { icons } from '@/constants/icons';
+import { paddings } from '@/constants/paddings';
+import { Colors } from '@/constants/theme';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import CulturaIcon from '../../assets/images/Icono-Cultura.svg';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import TeatroColonIcon from '../../assets/images/Imagen-Teatro-Colon.svg';
-import CorazonIcon from '../../assets/images/Icono-Corazon.svg';
-import CorazonLlenoIcon from '../../assets/images/Icono-Corazon-Rellenado.svg';
 
 type Props = {
   title?: string;
@@ -14,7 +16,7 @@ type Props = {
   onBackPress?: () => void;
 };
 
-export function CardItinerarioInfo({
+export function ItineraryInfoCard({
   title = "Teatro Colón",
   category = "Cultura",
   dateRange = "15 Oct - 22 Oct, 2024",
@@ -25,47 +27,47 @@ export function CardItinerarioInfo({
 
   return (
     <View>
-      {/** Contenedor de la imagen */}
-      <View style={styles.contenedorImagen}>
-        {/** Imagen superpuesta con texto */}
+      {/** Image container */}
+      <View style={styles.imageContainer}>
+        {/** Overlay image with text */}
         <TeatroColonIcon width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style={StyleSheet.absoluteFillObject} />
 
-        {/** Capa superpuesta con filtro oscuro trasparente */}
+        {/** Dark transparent overlay */}
         <View style={styles.heroOverlay}>
-          {/* Iconos de atras y corazon */}
+          {/* Back and heart icons */}
           <View style={styles.heroTopBar}>
-            {/** Boton de atras */}
-            <TouchableOpacity style={styles.contenedorCircular} onPress={onBackPress}>
-              <Ionicons name="arrow-back" size={20} color="#111827" />
+            {/** Back button */}
+            <TouchableOpacity style={styles.circularContainer} onPress={onBackPress}>
+              <MaterialIcons name={icons.ArrowBack} size={fonts.size.xl} color={colors.black} />
             </TouchableOpacity>
-            {/** Boton de corazon */}
-            <TouchableOpacity style={styles.contenedorCircular} onPress={() => setIsFavorite(!isFavorite)}>
-              {isFavorite ?
-                <CorazonLlenoIcon width={21} height={21} />
-                :
-                <CorazonIcon width={21} height={21} />
-              }
+            {/** Heart button */}
+            <TouchableOpacity style={styles.circularContainer} onPress={() => setIsFavorite(!isFavorite)}>
+              <MaterialIcons
+                name={isFavorite ? icons.FavoriteFilled : icons.FavoriteOutline}
+                size={fonts.size.xl}
+                color={isFavorite ? colors.danger : colors.textSecondary}
+              />
             </TouchableOpacity>
           </View>
 
-          {/** Contenido de la parte inferior de la imagen */}
-          <View style={styles.contenedorInfoInferior}>
-            {/** Insignia de la categoria */}
-            <View style={styles.etiquetaCategoria}>
-              <CulturaIcon width={16} height={16} style={{ marginRight: 4 }} />
-              <Text style={styles.etiquetaCategoriaTexto}>{category}</Text>
+          {/** Bottom info container */}
+          <View style={styles.bottomInfoContainer}>
+            {/** Category badge */}
+            <View style={styles.categoryBadge}>
+              <MaterialIcons name={icons.Museum} size={fonts.size.lg} color={colors.primary} style={{ marginRight: 4 }} />
+              <Text style={styles.categoryText}>{category}</Text>
             </View>
-            <Text style={styles.titulo}>{title}</Text>
-            <View style={styles.fechas}>
-              <Ionicons name="calendar-outline" size={16} color="#FFFFFF" />
-              <Text style={styles.fechasTexto}>{dateRange}</Text>
+            <Text style={styles.title}>{title}</Text>
+            <View style={styles.datesRow}>
+              <MaterialIcons name={icons.CalendarToday} size={fonts.size.md} color={colors.textInverse} />
+              <Text style={styles.datesText}>{dateRange}</Text>
             </View>
           </View>
         </View>
       </View>
 
-      {/* Descripción */}
-      <Text style={styles.descripcion}>
+      {/* Description */}
+      <Text style={styles.description}>
         {description}
       </Text>
     </View>
@@ -73,14 +75,14 @@ export function CardItinerarioInfo({
 }
 
 const styles = StyleSheet.create({
-  contenedorImagen: {
+  imageContainer: {
     width: '100%',
     height: 280,
     marginTop: 10,
-    borderRadius: 24,
+    borderRadius: paddings.radius.xxl,
     overflow: 'hidden',
     position: 'relative',
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
   },
   heroOverlay: {
     flex: 1,
-    padding: 16,
+    padding: paddings.spacing.lg,
     justifyContent: 'space-between',
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
@@ -96,59 +98,60 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  contenedorCircular: {
+  circularContainer: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.surface,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  contenedorInfoInferior: {
-    gap: 8,
+  bottomInfoContainer: {
+    gap: paddings.spacing.sm,
   },
-  etiquetaCategoria: {
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 12,
+  categoryBadge: {
+    backgroundColor: colors.surface,
+    paddingHorizontal: paddings.spacing.md,
     paddingVertical: 6,
-    borderRadius: 20,
+    borderRadius: paddings.radius.lg,
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  etiquetaCategoriaTexto: {
-    color: '#111827',
-    fontSize: 13,
-    fontWeight: 'bold',
+  categoryText: {
+    color: Colors.light.text,
+    fontSize: fonts.size.sm - 1,
+    fontWeight: fonts.weight.bold,
     marginLeft: 2,
   },
-  titulo: {
-    color: '#FFFFFF',
-    fontSize: 32,
-    fontWeight: 'bold',
+  title: {
+    color: colors.textInverse,
+    fontSize: fonts.size.xxxl,
+    fontFamily: fonts.family.headingBold,
     lineHeight: 36,
     textShadowColor: 'rgba(0,0,0,0.5)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
   },
-  fechas: {
+  datesRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
   },
-  fechasTexto: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+  datesText: {
+    color: colors.textInverse,
+    fontSize: fonts.size.sm,
+    fontFamily: fonts.family.bodySemiBold,
     textShadowColor: 'rgba(0,0,0,0.5)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
   },
-  descripcion: {
-    fontSize: 16,
-    color: '#4B5563',
+  description: {
+    fontSize: fonts.size.md,
+    color: colors.textSecondary,
+    fontFamily: fonts.family.bodyRegular,
     textAlign: 'center',
-    marginTop: 20,
-    marginBottom: 24,
+    marginTop: paddings.spacing.xl,
+    marginBottom: paddings.spacing.xxl,
   },
 });
