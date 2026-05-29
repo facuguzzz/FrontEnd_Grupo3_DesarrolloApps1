@@ -1,4 +1,4 @@
-import { apiFetch } from "./api";
+import { apiClient } from "./api";
 
 export interface AuthResponse {
   token: string;
@@ -20,15 +20,9 @@ export interface RegisterPayload {
 }
 
 export function login(payload: LoginPayload): Promise<AuthResponse> {
-  return apiFetch<AuthResponse>("/auth/login", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  return apiClient.post<AuthResponse>("/auth/login", payload).then((r) => r.data);
 }
 
 export function register(payload: RegisterPayload): Promise<AuthResponse> {
-  return apiFetch<AuthResponse>("/auth/register", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  return apiClient.post<AuthResponse>("/auth/register", payload).then((r) => r.data);
 }
