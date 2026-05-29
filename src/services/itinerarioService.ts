@@ -3,7 +3,7 @@ import {
   ItinerarioSistemaResumenDTO,
   Provincia,
 } from "../types/itinerario";
-import { apiFetch } from "./api";
+import { apiClient } from "./api";
 
 export interface BuscarParams {
   provincia?: Provincia;
@@ -21,7 +21,7 @@ export async function buscarPorPreferencias(
   if (params.fechaInicio) query.append("fechaInicio", params.fechaInicio);
   if (params.fechaFin) query.append("fechaFin", params.fechaFin);
   const qs = query.toString();
-  return apiFetch<ItinerarioSistemaResumenDTO[]>(
-    `/itinerario/buscar${qs ? `?${qs}` : ""}`,
-  );
+  return apiClient
+    .get<ItinerarioSistemaResumenDTO[]>(`/itinerario/buscar${qs ? `?${qs}` : ""}`)
+    .then((r) => r.data);
 }

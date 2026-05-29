@@ -5,7 +5,7 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import { setAuthToken } from "../services/api";
+import { setAuthToken, setUnauthorizedHandler, isTokenExpired } from "../services/api";
 import * as authService from "../services/authService";
 import type {
   AuthResponse,
@@ -53,10 +53,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           storage.getToken(),
           storage.getUser<AuthUser>(),
         ]);
-        if (storedToken) {
+        if (storedToken && !isTokenExpired(storedToken)) {
           setAuthToken(storedToken);
           setToken(storedToken);
           setUser(storedUser);
+        } else if (storedToken) {
+          await storage.clearSession();
         }
       } finally {
         await minDelay;
@@ -98,6 +100,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
     await storage.clearSession();
   }, []);
+
+  useEffect(() => {
+    setUnauthorizedHandler(logout);
+  }, [logout]);
 
   return (
     <AuthContext.Provider
